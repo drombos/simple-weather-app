@@ -21,11 +21,11 @@ public class AccuweatherLocationDto implements LocationDto {
     @Override
     public String toString() {
         return "MIASTO (id: " + locationKey + ") " +
-                cityName + "\n" +
+                cityName + "\n\t" +
                 area.type + " " + area.name + ", " +
-                country.name + "\n" +
+                country.name + "\n\t" +
                 "dł. " + geoPosition.longitude + " / " +
-                "szer. " + geoPosition.longitude;
+                "szer. " + geoPosition.latitude + "\n";
     }
 
     private static class CountryDto {

@@ -13,6 +13,7 @@ import java.util.Set;
 
 public class AccuweatherClient implements ApiClient {
     private final static String CREDENTIALS_PATH = "api";
+    private final static String API_ERROR_MSG = "Nie udało się połączyć z API :(((";
     private final static String ACCUWEATHER_KEY = ResourceBundle.getBundle(CREDENTIALS_PATH)
             .getString("accuweather_key");
     private final AccuweatherRetrofitService service;
@@ -27,14 +28,13 @@ public class AccuweatherClient implements ApiClient {
 
     @Override
     public Set<AccuweatherLocationDto> queryLocations(ApiQuery query) {
-        Set<AccuweatherLocationDto> locations;
+        Set<AccuweatherLocationDto> locations = null;
         try {
             locations = service.getLocations(ACCUWEATHER_KEY, query.toQuery(), "pl-pl")
                     .execute()
                     .body();
         } catch (IOException e) {
-            System.out.println("Nie udało się połączyć z API.");
-            throw new RuntimeException(e);
+            System.out.println(API_ERROR_MSG);
         }
 
         if (locations == null) {
@@ -48,12 +48,17 @@ public class AccuweatherClient implements ApiClient {
     public Set<ForecastDto> queryForecasts(LocationDto location) {
         Set<ForecastDto> forecasts = new HashSet<>();
         try {
-            forecasts.add(service.getForecasts("266399", ACCUWEATHER_KEY, "pl-pl", true, true)
+            forecasts.add(service.getForecasts(
+                            location.accuweatherLocationKey(),
+                            ACCUWEATHER_KEY,
+                            "pl-pl",
+                            true,
+                            true
+                    )
                     .execute()
                     .body());
         } catch (IOException e) {
-            System.out.println("Nie udało się połączyć z API.");
-            throw new RuntimeException(e);
+            System.out.println(API_ERROR_MSG);
         }
 
         return forecasts;

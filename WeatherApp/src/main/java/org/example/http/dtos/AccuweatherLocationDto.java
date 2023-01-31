@@ -28,6 +28,11 @@ public class AccuweatherLocationDto implements LocationDto {
                 "szer. " + geoPosition.latitude + "\n";
     }
 
+    @Override
+    public String accuweatherLocationKey() {
+        return locationKey;
+    }
+
     private static class CountryDto {
         @SerializedName("LocalizedName")
         private String name;

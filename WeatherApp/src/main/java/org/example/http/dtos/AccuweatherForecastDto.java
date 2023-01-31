@@ -20,7 +20,7 @@ public class AccuweatherForecastDto implements ForecastDto {
                 .append(f.date)
                 .append("\t--- ")
                 .append(f.temp.min.celsius)
-                .append(" °C")
+                .append(" °C --- ")
                 .append(f.day.description));
         return sb.toString();
     }

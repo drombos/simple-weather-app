@@ -1,6 +1,6 @@
 package main.java.org.example;
 
-public class City {
+public class Location {
     private String city;
     private String state;
     private String country;
@@ -33,6 +33,7 @@ public class City {
     public String toString() {
         return city+" ("+state+") "+country;
     }
+
 
 
 

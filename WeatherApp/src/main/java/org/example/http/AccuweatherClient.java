@@ -1,22 +1,26 @@
 package org.example.http;
 
 import org.example.http.dtos.AccuweatherLocationDto;
-
-import org.example.http.services.*;
+import org.example.http.services.AccuweatherRetrofitService;
+import org.example.http.services.RetrofitServiceFactory;
 
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.ResourceBundle;
+import java.util.Set;
 
 public class AccuweatherClient implements HttpClient {
     private final static String CREDENTIALS_PATH = "api";
-    private final static String BASE_URL = "http://dataservice.accuweather.com/";
     private final static String ACCUWEATHER_KEY = ResourceBundle.getBundle(CREDENTIALS_PATH)
             .getString("accuweather_key");
     private final AccuweatherRetrofitService service;
 
+    public AccuweatherClient(String baseUrl) {
+        this.service = new RetrofitServiceFactory(baseUrl).createService(AccuweatherRetrofitService.class);
+    }
 
     public AccuweatherClient() {
-        this.service = new RetrofitServiceFactory(BASE_URL).createService(AccuweatherRetrofitService.class);
+        this("http://dataservice.accuweather.com/");
     }
 
     @Override

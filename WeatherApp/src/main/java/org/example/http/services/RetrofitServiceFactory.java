@@ -5,8 +5,8 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitServiceFactory {
     private final static GsonConverterFactory DESERIALIZER = GsonConverterFactory.create();
-    private final String baseUrl;
-    private final Retrofit retrofit;
+    protected final String baseUrl;
+    protected final Retrofit retrofit;
 
     public RetrofitServiceFactory(String baseUrl) {
         this.baseUrl = baseUrl;

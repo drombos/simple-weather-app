@@ -2,7 +2,7 @@ package main.java.org.example;
 
 import java.util.Scanner;
 
-public class CityQuery {
+public class LocationQuery {
 
     public static void main(String[] args) {
 
@@ -24,7 +24,7 @@ public class CityQuery {
 
 
         System.out.print("Enter the name of the country: ");
-        userCountry= scanner.nextLine();
+        userCountry = scanner.nextLine();
         if (userCountry.equals("")) {
             userCountry = "Poland";
         }

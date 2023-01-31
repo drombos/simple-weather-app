@@ -1,0 +1,1316 @@
+{
+  "Headline": {
+    "EffectiveDate": "2023-01-31T19:00:00+01:00",
+    "EffectiveEpochDate": 1675188000,
+    "Severity": 3,
+    "Text": "Deszcz zmieszany ze śniegiem od: wtorek wieczór do: środa po południu",
+    "Category": "snow/rain",
+    "EndDate": "2023-02-01T19:00:00+01:00",
+    "EndEpochDate": 1675274400,
+    "MobileLink": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?unit=c",
+    "Link": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?unit=c"
+  },
+  "DailyForecasts": [
+    {
+      "Date": "2023-01-31T07:00:00+01:00",
+      "EpochDate": 1675144800,
+      "Sun": {
+        "Rise": "2023-01-31T07:32:00+01:00",
+        "EpochRise": 1675146720,
+        "Set": "2023-01-31T16:36:00+01:00",
+        "EpochSet": 1675179360
+      },
+      "Moon": {
+        "Rise": "2023-01-31T11:27:00+01:00",
+        "EpochRise": 1675160820,
+        "Set": "2023-02-01T05:08:00+01:00",
+        "EpochSet": 1675224480,
+        "Phase": "WaxingGibbous",
+        "Age": 10
+      },
+      "Temperature": {
+        "Minimum": {
+          "Value": 1.9,
+          "Unit": "C",
+          "UnitType": 17
+        },
+        "Maximum": {
+          "Value": 3.0,
+          "Unit": "C",
+          "UnitType": 17
+        }
+      },
+      "RealFeelTemperature": {
+        "Minimum": {
+          "Value": -6.8,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Bardzo zimno"
+        },
+        "Maximum": {
+          "Value": -2.1,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Zimno"
+        }
+      },
+      "RealFeelTemperatureShade": {
+        "Minimum": {
+          "Value": -6.8,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Bardzo zimno"
+        },
+        "Maximum": {
+          "Value": -2.3,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Zimno"
+        }
+      },
+      "HoursOfSun": 1.8,
+      "DegreeDaySummary": {
+        "Heating": {
+          "Value": 16.0,
+          "Unit": "C",
+          "UnitType": 17
+        },
+        "Cooling": {
+          "Value": 0.0,
+          "Unit": "C",
+          "UnitType": 17
+        }
+      },
+      "AirAndPollen": [
+        {
+          "Name": "AirQuality",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1,
+          "Type": "Ozon"
+        },
+        {
+          "Name": "Grass",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Mold",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Ragweed",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Tree",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "UVIndex",
+          "Value": 1,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        }
+      ],
+      "Day": {
+        "Icon": 29,
+        "IconPhrase": "Deszcz i śnieg",
+        "HasPrecipitation": true,
+        "PrecipitationType": "Mixed",
+        "PrecipitationIntensity": "Moderate",
+        "ShortPhrase": "Okresowy śnieg i deszcz",
+        "LongPhrase": "Okresowy śnieg i deszcz",
+        "PrecipitationProbability": 78,
+        "ThunderstormProbability": 0,
+        "RainProbability": 71,
+        "SnowProbability": 57,
+        "IceProbability": 0,
+        "Wind": {
+          "Speed": {
+            "Value": 22.2,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 269,
+            "Localized": "W",
+            "English": "W"
+          }
+        },
+        "WindGust": {
+          "Speed": {
+            "Value": 46.3,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 286,
+            "Localized": "WNW",
+            "English": "WNW"
+          }
+        },
+        "TotalLiquid": {
+          "Value": 4.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Rain": {
+          "Value": 3.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Snow": {
+          "Value": 0.66,
+          "Unit": "cm",
+          "UnitType": 4
+        },
+        "Ice": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "HoursOfPrecipitation": 3.0,
+        "HoursOfRain": 3.0,
+        "HoursOfSnow": 3.0,
+        "HoursOfIce": 0.0,
+        "CloudCover": 93,
+        "Evapotranspiration": {
+          "Value": 0.5,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "SolarIrradiance": {
+          "Value": 1156.7,
+          "Unit": "W/m²",
+          "UnitType": 33
+        }
+      },
+      "Night": {
+        "Icon": 29,
+        "IconPhrase": "Deszcz i śnieg",
+        "HasPrecipitation": true,
+        "PrecipitationType": "Mixed",
+        "PrecipitationIntensity": "Light",
+        "ShortPhrase": "Przelotne opady deszczu lub śniegu",
+        "LongPhrase": "Przelotne opady deszczu lub śniegu",
+        "PrecipitationProbability": 84,
+        "ThunderstormProbability": 13,
+        "RainProbability": 83,
+        "SnowProbability": 49,
+        "IceProbability": 0,
+        "Wind": {
+          "Speed": {
+            "Value": 31.5,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 270,
+            "Localized": "W",
+            "English": "W"
+          }
+        },
+        "WindGust": {
+          "Speed": {
+            "Value": 63.0,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 279,
+            "Localized": "W",
+            "English": "W"
+          }
+        },
+        "TotalLiquid": {
+          "Value": 1.7,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Rain": {
+          "Value": 1.4,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Snow": {
+          "Value": 0.13,
+          "Unit": "cm",
+          "UnitType": 4
+        },
+        "Ice": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "HoursOfPrecipitation": 3.5,
+        "HoursOfRain": 2.0,
+        "HoursOfSnow": 3.0,
+        "HoursOfIce": 0.0,
+        "CloudCover": 96,
+        "Evapotranspiration": {
+          "Value": 0.3,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "SolarIrradiance": {
+          "Value": 0.0,
+          "Unit": "W/m²",
+          "UnitType": 33
+        }
+      },
+      "Sources": [
+        "AccuWeather"
+      ],
+      "MobileLink": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?day=1&unit=c",
+      "Link": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?day=1&unit=c"
+    },
+    {
+      "Date": "2023-02-01T07:00:00+01:00",
+      "EpochDate": 1675231200,
+      "Sun": {
+        "Rise": "2023-02-01T07:31:00+01:00",
+        "EpochRise": 1675233060,
+        "Set": "2023-02-01T16:37:00+01:00",
+        "EpochSet": 1675265820
+      },
+      "Moon": {
+        "Rise": "2023-02-01T12:02:00+01:00",
+        "EpochRise": 1675249320,
+        "Set": "2023-02-02T06:07:00+01:00",
+        "EpochSet": 1675314420,
+        "Phase": "WaxingGibbous",
+        "Age": 11
+      },
+      "Temperature": {
+        "Minimum": {
+          "Value": 2.0,
+          "Unit": "C",
+          "UnitType": 17
+        },
+        "Maximum": {
+          "Value": 4.1,
+          "Unit": "C",
+          "UnitType": 17
+        }
+      },
+      "RealFeelTemperature": {
+        "Minimum": {
+          "Value": -8.1,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Bardzo zimno"
+        },
+        "Maximum": {
+          "Value": -3.2,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Zimno"
+        }
+      },
+      "RealFeelTemperatureShade": {
+        "Minimum": {
+          "Value": -8.1,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Bardzo zimno"
+        },
+        "Maximum": {
+          "Value": -3.2,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Zimno"
+        }
+      },
+      "HoursOfSun": 1.2,
+      "DegreeDaySummary": {
+        "Heating": {
+          "Value": 15.0,
+          "Unit": "C",
+          "UnitType": 17
+        },
+        "Cooling": {
+          "Value": 0.0,
+          "Unit": "C",
+          "UnitType": 17
+        }
+      },
+      "AirAndPollen": [
+        {
+          "Name": "AirQuality",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1,
+          "Type": "Ozon"
+        },
+        {
+          "Name": "Grass",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Mold",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Ragweed",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Tree",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "UVIndex",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        }
+      ],
+      "Day": {
+        "Icon": 29,
+        "IconPhrase": "Deszcz i śnieg",
+        "HasPrecipitation": true,
+        "PrecipitationType": "Mixed",
+        "PrecipitationIntensity": "Light",
+        "ShortPhrase": "Okresowy śnieg i deszcz",
+        "LongPhrase": "Okresowy śnieg i deszcz",
+        "PrecipitationProbability": 94,
+        "ThunderstormProbability": 12,
+        "RainProbability": 92,
+        "SnowProbability": 57,
+        "IceProbability": 0,
+        "Wind": {
+          "Speed": {
+            "Value": 31.5,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 264,
+            "Localized": "W",
+            "English": "W"
+          }
+        },
+        "WindGust": {
+          "Speed": {
+            "Value": 51.9,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 270,
+            "Localized": "W",
+            "English": "W"
+          }
+        },
+        "TotalLiquid": {
+          "Value": 5.3,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Rain": {
+          "Value": 4.4,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Snow": {
+          "Value": 0.3,
+          "Unit": "cm",
+          "UnitType": 4
+        },
+        "Ice": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "HoursOfPrecipitation": 4.5,
+        "HoursOfRain": 2.5,
+        "HoursOfSnow": 4.0,
+        "HoursOfIce": 0.0,
+        "CloudCover": 97,
+        "Evapotranspiration": {
+          "Value": 0.3,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "SolarIrradiance": {
+          "Value": 1012.0,
+          "Unit": "W/m²",
+          "UnitType": 33
+        }
+      },
+      "Night": {
+        "Icon": 12,
+        "IconPhrase": "Przelotne opady",
+        "HasPrecipitation": true,
+        "PrecipitationType": "Rain",
+        "PrecipitationIntensity": "Light",
+        "ShortPhrase": "Słaby deszcz",
+        "LongPhrase": "Słaby deszcz",
+        "PrecipitationProbability": 59,
+        "ThunderstormProbability": 10,
+        "RainProbability": 59,
+        "SnowProbability": 7,
+        "IceProbability": 0,
+        "Wind": {
+          "Speed": {
+            "Value": 29.6,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 266,
+            "Localized": "W",
+            "English": "W"
+          }
+        },
+        "WindGust": {
+          "Speed": {
+            "Value": 55.6,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 255,
+            "Localized": "WSW",
+            "English": "WSW"
+          }
+        },
+        "TotalLiquid": {
+          "Value": 1.5,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Rain": {
+          "Value": 1.5,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Snow": {
+          "Value": 0.0,
+          "Unit": "cm",
+          "UnitType": 4
+        },
+        "Ice": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "HoursOfPrecipitation": 1.0,
+        "HoursOfRain": 1.0,
+        "HoursOfSnow": 0.0,
+        "HoursOfIce": 0.0,
+        "CloudCover": 98,
+        "Evapotranspiration": {
+          "Value": 0.5,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "SolarIrradiance": {
+          "Value": 0.0,
+          "Unit": "W/m²",
+          "UnitType": 33
+        }
+      },
+      "Sources": [
+        "AccuWeather"
+      ],
+      "MobileLink": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?day=2&unit=c",
+      "Link": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?day=2&unit=c"
+    },
+    {
+      "Date": "2023-02-02T07:00:00+01:00",
+      "EpochDate": 1675317600,
+      "Sun": {
+        "Rise": "2023-02-02T07:29:00+01:00",
+        "EpochRise": 1675319340,
+        "Set": "2023-02-02T16:39:00+01:00",
+        "EpochSet": 1675352340
+      },
+      "Moon": {
+        "Rise": "2023-02-02T12:49:00+01:00",
+        "EpochRise": 1675338540,
+        "Set": "2023-02-03T06:53:00+01:00",
+        "EpochSet": 1675403580,
+        "Phase": "WaxingGibbous",
+        "Age": 12
+      },
+      "Temperature": {
+        "Minimum": {
+          "Value": -2.2,
+          "Unit": "C",
+          "UnitType": 17
+        },
+        "Maximum": {
+          "Value": 4.1,
+          "Unit": "C",
+          "UnitType": 17
+        }
+      },
+      "RealFeelTemperature": {
+        "Minimum": {
+          "Value": -3.9,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Bardzo zimno"
+        },
+        "Maximum": {
+          "Value": -1.5,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Zimno"
+        }
+      },
+      "RealFeelTemperatureShade": {
+        "Minimum": {
+          "Value": -3.9,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Bardzo zimno"
+        },
+        "Maximum": {
+          "Value": -1.7,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Zimno"
+        }
+      },
+      "HoursOfSun": 1.2,
+      "DegreeDaySummary": {
+        "Heating": {
+          "Value": 17.0,
+          "Unit": "C",
+          "UnitType": 17
+        },
+        "Cooling": {
+          "Value": 0.0,
+          "Unit": "C",
+          "UnitType": 17
+        }
+      },
+      "AirAndPollen": [
+        {
+          "Name": "AirQuality",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1,
+          "Type": "Ozon"
+        },
+        {
+          "Name": "Grass",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Mold",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Ragweed",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Tree",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "UVIndex",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        }
+      ],
+      "Day": {
+        "Icon": 29,
+        "IconPhrase": "Deszcz i śnieg",
+        "HasPrecipitation": true,
+        "PrecipitationType": "Mixed",
+        "PrecipitationIntensity": "Light",
+        "ShortPhrase": "Bardzo wietrznie",
+        "LongPhrase": "Bardzo wietrznie",
+        "PrecipitationProbability": 84,
+        "ThunderstormProbability": 0,
+        "RainProbability": 82,
+        "SnowProbability": 80,
+        "IceProbability": 0,
+        "Wind": {
+          "Speed": {
+            "Value": 27.8,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 293,
+            "Localized": "WNW",
+            "English": "WNW"
+          }
+        },
+        "WindGust": {
+          "Speed": {
+            "Value": 57.4,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 311,
+            "Localized": "NW",
+            "English": "NW"
+          }
+        },
+        "TotalLiquid": {
+          "Value": 4.6,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Rain": {
+          "Value": 3.3,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Snow": {
+          "Value": 0.66,
+          "Unit": "cm",
+          "UnitType": 4
+        },
+        "Ice": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "HoursOfPrecipitation": 3.0,
+        "HoursOfRain": 2.5,
+        "HoursOfSnow": 2.0,
+        "HoursOfIce": 0.0,
+        "CloudCover": 92,
+        "Evapotranspiration": {
+          "Value": 0.5,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "SolarIrradiance": {
+          "Value": 1004.0,
+          "Unit": "W/m²",
+          "UnitType": 33
+        }
+      },
+      "Night": {
+        "Icon": 38,
+        "IconPhrase": "Zachmurzenie duże",
+        "HasPrecipitation": false,
+        "ShortPhrase": "Rosnące zachmurzenie",
+        "LongPhrase": "Rosnące zachmurzenie",
+        "PrecipitationProbability": 5,
+        "ThunderstormProbability": 0,
+        "RainProbability": 0,
+        "SnowProbability": 5,
+        "IceProbability": 0,
+        "Wind": {
+          "Speed": {
+            "Value": 11.1,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 281,
+            "Localized": "W",
+            "English": "W"
+          }
+        },
+        "WindGust": {
+          "Speed": {
+            "Value": 40.7,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 302,
+            "Localized": "WNW",
+            "English": "WNW"
+          }
+        },
+        "TotalLiquid": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Rain": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Snow": {
+          "Value": 0.0,
+          "Unit": "cm",
+          "UnitType": 4
+        },
+        "Ice": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "HoursOfPrecipitation": 0.0,
+        "HoursOfRain": 0.0,
+        "HoursOfSnow": 0.0,
+        "HoursOfIce": 0.0,
+        "CloudCover": 84,
+        "Evapotranspiration": {
+          "Value": 0.3,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "SolarIrradiance": {
+          "Value": 0.0,
+          "Unit": "W/m²",
+          "UnitType": 33
+        }
+      },
+      "Sources": [
+        "AccuWeather"
+      ],
+      "MobileLink": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?day=3&unit=c",
+      "Link": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?day=3&unit=c"
+    },
+    {
+      "Date": "2023-02-03T07:00:00+01:00",
+      "EpochDate": 1675404000,
+      "Sun": {
+        "Rise": "2023-02-03T07:27:00+01:00",
+        "EpochRise": 1675405620,
+        "Set": "2023-02-03T16:41:00+01:00",
+        "EpochSet": 1675438860
+      },
+      "Moon": {
+        "Rise": "2023-02-03T13:48:00+01:00",
+        "EpochRise": 1675428480,
+        "Set": "2023-02-04T07:29:00+01:00",
+        "EpochSet": 1675492140,
+        "Phase": "WaxingGibbous",
+        "Age": 13
+      },
+      "Temperature": {
+        "Minimum": {
+          "Value": 1.0,
+          "Unit": "C",
+          "UnitType": 17
+        },
+        "Maximum": {
+          "Value": 4.3,
+          "Unit": "C",
+          "UnitType": 17
+        }
+      },
+      "RealFeelTemperature": {
+        "Minimum": {
+          "Value": -6.5,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Bardzo zimno"
+        },
+        "Maximum": {
+          "Value": -1.7,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Zimno"
+        }
+      },
+      "RealFeelTemperatureShade": {
+        "Minimum": {
+          "Value": -6.5,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Bardzo zimno"
+        },
+        "Maximum": {
+          "Value": -1.7,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Zimno"
+        }
+      },
+      "HoursOfSun": 1.7,
+      "DegreeDaySummary": {
+        "Heating": {
+          "Value": 15.0,
+          "Unit": "C",
+          "UnitType": 17
+        },
+        "Cooling": {
+          "Value": 0.0,
+          "Unit": "C",
+          "UnitType": 17
+        }
+      },
+      "AirAndPollen": [
+        {
+          "Name": "AirQuality",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1,
+          "Type": "Ozon"
+        },
+        {
+          "Name": "Grass",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Mold",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Ragweed",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Tree",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "UVIndex",
+          "Value": 1,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        }
+      ],
+      "Day": {
+        "Icon": 29,
+        "IconPhrase": "Deszcz i śnieg",
+        "HasPrecipitation": true,
+        "PrecipitationType": "Mixed",
+        "PrecipitationIntensity": "Moderate",
+        "ShortPhrase": "Okresowy śnieg przechodzący w deszcz",
+        "LongPhrase": "Okresowy śnieg przechodzący w deszcz",
+        "PrecipitationProbability": 77,
+        "ThunderstormProbability": 0,
+        "RainProbability": 70,
+        "SnowProbability": 57,
+        "IceProbability": 1,
+        "Wind": {
+          "Speed": {
+            "Value": 20.4,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 222,
+            "Localized": "SW",
+            "English": "SW"
+          }
+        },
+        "WindGust": {
+          "Speed": {
+            "Value": 42.6,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 284,
+            "Localized": "WNW",
+            "English": "WNW"
+          }
+        },
+        "TotalLiquid": {
+          "Value": 2.9,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Rain": {
+          "Value": 2.2,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Snow": {
+          "Value": 0.63,
+          "Unit": "cm",
+          "UnitType": 4
+        },
+        "Ice": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "HoursOfPrecipitation": 3.5,
+        "HoursOfRain": 1.5,
+        "HoursOfSnow": 2.0,
+        "HoursOfIce": 0.0,
+        "CloudCover": 94,
+        "Evapotranspiration": {
+          "Value": 0.5,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "SolarIrradiance": {
+          "Value": 1146.8,
+          "Unit": "W/m²",
+          "UnitType": 33
+        }
+      },
+      "Night": {
+        "Icon": 12,
+        "IconPhrase": "Przelotne opady",
+        "HasPrecipitation": true,
+        "PrecipitationType": "Rain",
+        "PrecipitationIntensity": "Moderate",
+        "ShortPhrase": "Słaby deszcz",
+        "LongPhrase": "Słaby deszcz",
+        "PrecipitationProbability": 75,
+        "ThunderstormProbability": 0,
+        "RainProbability": 75,
+        "SnowProbability": 3,
+        "IceProbability": 0,
+        "Wind": {
+          "Speed": {
+            "Value": 27.8,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 304,
+            "Localized": "NW",
+            "English": "NW"
+          }
+        },
+        "WindGust": {
+          "Speed": {
+            "Value": 64.8,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 312,
+            "Localized": "NW",
+            "English": "NW"
+          }
+        },
+        "TotalLiquid": {
+          "Value": 5.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Rain": {
+          "Value": 5.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Snow": {
+          "Value": 0.0,
+          "Unit": "cm",
+          "UnitType": 4
+        },
+        "Ice": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "HoursOfPrecipitation": 2.0,
+        "HoursOfRain": 2.0,
+        "HoursOfSnow": 0.0,
+        "HoursOfIce": 0.0,
+        "CloudCover": 100,
+        "Evapotranspiration": {
+          "Value": 0.3,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "SolarIrradiance": {
+          "Value": 0.0,
+          "Unit": "W/m²",
+          "UnitType": 33
+        }
+      },
+      "Sources": [
+        "AccuWeather"
+      ],
+      "MobileLink": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?day=4&unit=c",
+      "Link": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?day=4&unit=c"
+    },
+    {
+      "Date": "2023-02-04T07:00:00+01:00",
+      "EpochDate": 1675490400,
+      "Sun": {
+        "Rise": "2023-02-04T07:26:00+01:00",
+        "EpochRise": 1675491960,
+        "Set": "2023-02-04T16:43:00+01:00",
+        "EpochSet": 1675525380
+      },
+      "Moon": {
+        "Rise": "2023-02-04T14:55:00+01:00",
+        "EpochRise": 1675518900,
+        "Set": "2023-02-05T07:54:00+01:00",
+        "EpochSet": 1675580040,
+        "Phase": "WaxingGibbous",
+        "Age": 14
+      },
+      "Temperature": {
+        "Minimum": {
+          "Value": -0.9,
+          "Unit": "C",
+          "UnitType": 17
+        },
+        "Maximum": {
+          "Value": 3.7,
+          "Unit": "C",
+          "UnitType": 17
+        }
+      },
+      "RealFeelTemperature": {
+        "Minimum": {
+          "Value": -6.2,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Bardzo zimno"
+        },
+        "Maximum": {
+          "Value": -1.0,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Zimno"
+        }
+      },
+      "RealFeelTemperatureShade": {
+        "Minimum": {
+          "Value": -6.2,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Bardzo zimno"
+        },
+        "Maximum": {
+          "Value": -1.2,
+          "Unit": "C",
+          "UnitType": 17,
+          "Phrase": "Zimno"
+        }
+      },
+      "HoursOfSun": 1.5,
+      "DegreeDaySummary": {
+        "Heating": {
+          "Value": 17.0,
+          "Unit": "C",
+          "UnitType": 17
+        },
+        "Cooling": {
+          "Value": 0.0,
+          "Unit": "C",
+          "UnitType": 17
+        }
+      },
+      "AirAndPollen": [
+        {
+          "Name": "AirQuality",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1,
+          "Type": "Ozon"
+        },
+        {
+          "Name": "Grass",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Mold",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Ragweed",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "Tree",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        },
+        {
+          "Name": "UVIndex",
+          "Value": 0,
+          "Category": "Dobre",
+          "CategoryValue": 1
+        }
+      ],
+      "Day": {
+        "Icon": 18,
+        "IconPhrase": "Deszcz",
+        "HasPrecipitation": true,
+        "PrecipitationType": "Rain",
+        "PrecipitationIntensity": "Light",
+        "ShortPhrase": "Okresowe opady deszczu",
+        "LongPhrase": "Okresowe opady deszczu",
+        "PrecipitationProbability": 91,
+        "ThunderstormProbability": 0,
+        "RainProbability": 91,
+        "SnowProbability": 23,
+        "IceProbability": 0,
+        "Wind": {
+          "Speed": {
+            "Value": 18.5,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 359,
+            "Localized": "N",
+            "English": "N"
+          }
+        },
+        "WindGust": {
+          "Speed": {
+            "Value": 44.4,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 4,
+            "Localized": "N",
+            "English": "N"
+          }
+        },
+        "TotalLiquid": {
+          "Value": 5.2,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Rain": {
+          "Value": 5.2,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Snow": {
+          "Value": 0.0,
+          "Unit": "cm",
+          "UnitType": 4
+        },
+        "Ice": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "HoursOfPrecipitation": 3.0,
+        "HoursOfRain": 3.0,
+        "HoursOfSnow": 0.0,
+        "HoursOfIce": 0.0,
+        "CloudCover": 98,
+        "Evapotranspiration": {
+          "Value": 0.5,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "SolarIrradiance": {
+          "Value": 1073.6,
+          "Unit": "W/m²",
+          "UnitType": 33
+        }
+      },
+      "Night": {
+        "Icon": 7,
+        "IconPhrase": "Pochmurno",
+        "HasPrecipitation": false,
+        "ShortPhrase": "Pochmurno",
+        "LongPhrase": "Pochmurno",
+        "PrecipitationProbability": 25,
+        "ThunderstormProbability": 0,
+        "RainProbability": 13,
+        "SnowProbability": 17,
+        "IceProbability": 1,
+        "Wind": {
+          "Speed": {
+            "Value": 16.7,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 342,
+            "Localized": "NNW",
+            "English": "NNW"
+          }
+        },
+        "WindGust": {
+          "Speed": {
+            "Value": 27.8,
+            "Unit": "km/h",
+            "UnitType": 7
+          },
+          "Direction": {
+            "Degrees": 329,
+            "Localized": "NNW",
+            "English": "NNW"
+          }
+        },
+        "TotalLiquid": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Rain": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "Snow": {
+          "Value": 0.0,
+          "Unit": "cm",
+          "UnitType": 4
+        },
+        "Ice": {
+          "Value": 0.0,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "HoursOfPrecipitation": 0.0,
+        "HoursOfRain": 0.0,
+        "HoursOfSnow": 0.0,
+        "HoursOfIce": 0.0,
+        "CloudCover": 99,
+        "Evapotranspiration": {
+          "Value": 0.3,
+          "Unit": "mm",
+          "UnitType": 3
+        },
+        "SolarIrradiance": {
+          "Value": 0.0,
+          "Unit": "W/m²",
+          "UnitType": 33
+        }
+      },
+      "Sources": [
+        "AccuWeather"
+      ],
+      "MobileLink": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?day=5&unit=c",
+      "Link": "http://www.accuweather.com/pl/pl/jarocin/266399/daily-weather-forecast/266399?day=5&unit=c"
+    }
+  ]
+}

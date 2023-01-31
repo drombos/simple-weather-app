@@ -1,6 +1,8 @@
 package org.example.http;
 
 import org.example.http.dtos.AccuweatherLocationDto;
+import org.example.http.dtos.ForecastDto;
+import org.example.http.dtos.LocationDto;
 import org.example.http.services.AccuweatherRetrofitService;
 import org.example.http.services.RetrofitServiceFactory;
 
@@ -9,7 +11,7 @@ import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-public class AccuweatherClient implements HttpClient {
+public class AccuweatherClient implements ApiClient {
     private final static String CREDENTIALS_PATH = "api";
     private final static String ACCUWEATHER_KEY = ResourceBundle.getBundle(CREDENTIALS_PATH)
             .getString("accuweather_key");
@@ -40,5 +42,20 @@ public class AccuweatherClient implements HttpClient {
         }
 
         return locations;
+    }
+
+    @Override
+    public Set<ForecastDto> queryForecasts(LocationDto location) {
+        Set<ForecastDto> forecasts = new HashSet<>();
+        try {
+            forecasts.add(service.getForecasts("266399", ACCUWEATHER_KEY, "pl-pl", true, true)
+                    .execute()
+                    .body());
+        } catch (IOException e) {
+            System.out.println("Nie udało się połączyć z API.");
+            throw new RuntimeException(e);
+        }
+
+        return forecasts;
     }
 }

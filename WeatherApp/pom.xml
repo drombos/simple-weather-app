@@ -11,6 +11,21 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <retrofit.version>2.9.0</retrofit.version>
     </properties>
 
+    <dependencies>
+<!--        HTTP Client-->
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>retrofit</artifactId>
+            <version>${retrofit.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.squareup.retrofit2</groupId>
+            <artifactId>converter-gson</artifactId>
+            <version>${retrofit.version}</version>
+        </dependency>
+    </dependencies>
 </project>

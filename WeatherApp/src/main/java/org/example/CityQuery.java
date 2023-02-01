@@ -1,9 +1,9 @@
 package main.java.org.example;
 
-public class CityQuery {
-    private String city;
-    private String state;
-    private String country;
+public class CityQuery extends ApiQuery {
+    private final String city;
+    private final String state;
+    private final String country;
 
     public CityQuery(String city, String state, String country) {
         this.city = city;

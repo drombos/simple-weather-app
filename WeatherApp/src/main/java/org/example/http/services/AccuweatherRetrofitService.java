@@ -1,6 +1,6 @@
 package org.example.http.services;
 
-import org.example.http.dtos.AccuweatherForecastDto;
+import org.example.http.dtos.AccuweatherForecastsDto;
 import org.example.http.dtos.AccuweatherLocationDto;
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -18,7 +18,7 @@ non-sealed public interface AccuweatherRetrofitService extends Service {
     );
 
     @GET("/forecasts/v1/daily/5day/{locationKey}")
-    Call<AccuweatherForecastDto> getForecasts(
+    Call<AccuweatherForecastsDto> getForecasts(
             @Path("locationKey") String locationKey,
             @Query("apikey") String apiKey,
             @Query("language") String locale,

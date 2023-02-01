@@ -33,6 +33,16 @@ public class AccuweatherLocationDto implements LocationDto {
         return locationKey;
     }
 
+    @Override
+    public Double openweatherLatitude() {
+        return geoPosition.latitude;
+    }
+
+    @Override
+    public Double openweatherLongitude() {
+        return geoPosition.longitude;
+    }
+
     private static class CountryDto {
         @SerializedName("LocalizedName")
         private String name;

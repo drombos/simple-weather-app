@@ -1,3 +1,3 @@
 package org.example.http.services;
 
-sealed public interface Service permits AccuweatherRetrofitService { }
+sealed public interface Service permits AccuweatherRetrofitService, OpenweatherRetrofitService { }

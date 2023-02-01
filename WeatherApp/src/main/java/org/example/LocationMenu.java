@@ -4,10 +4,9 @@ import java.util.Scanner;
 
 public class LocationMenu {
 
-    public static void main(String[] args) {
+    public static void location() {
 
         Scanner scanner = new Scanner(System.in);
-        Location userLocation = new Location();
         String userCity;
         String userState;
         String userCountry;
@@ -15,12 +14,10 @@ public class LocationMenu {
         do {
             System.out.print("Wpisz nazwę miasta: ");
             userCity = scanner.nextLine();
-            userLocation.setCity(userCity);
         } while (userCity.equals(""));
 
         System.out.print("Wpisz nazwę województwa: ");
         userState = scanner.nextLine();
-        userLocation.setState(userState);
 
 
         System.out.print("Wpisz nazwę kraju: ");
@@ -28,9 +25,10 @@ public class LocationMenu {
         if (userCountry.equals("")) {
             userCountry = "Poland";
         }
-        userLocation.setCountry(userCountry);
 
-        System.out.println(userLocation);
+
+        CityQuery userCityQuery = new CityQuery(userCity, userState, userCountry);
+        System.out.println(userCityQuery);
     }
 }
 

@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class AccuweatherForecastDto implements ForecastDto {
+public class AccuweatherForecastsDto implements ForecastsDto {
     @SerializedName("Headline")
     private HeadlineDto headline;
 
@@ -13,7 +13,7 @@ public class AccuweatherForecastDto implements ForecastDto {
 
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder("###########\n");
+        StringBuilder sb = new StringBuilder("####   ACCUWEATHER   ####\n");
         sb.append(headline.description);
 
         dailyForecasts.forEach(f -> sb.append("\n\t")
@@ -23,6 +23,11 @@ public class AccuweatherForecastDto implements ForecastDto {
                 .append(" °C --- ")
                 .append(f.day.description));
         return sb.toString();
+    }
+
+    @Override
+    public boolean isProperlyFormed() {
+        return headline != null && dailyForecasts != null;
     }
 
     private static class HeadlineDto {

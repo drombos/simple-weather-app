@@ -19,6 +19,15 @@ public class AccuweatherLocationDto implements LocationDto {
     private GeoPositionDto geoPosition;
 
     @Override
+    public boolean isProperlyFormed() {
+        return locationKey != null
+                && cityName != null
+                && country != null
+                && area != null
+                && geoPosition != null;
+    }
+
+    @Override
     public String toString() {
         return "MIASTO (id: " + locationKey + ") " +
                 cityName + "\n\t" +
@@ -31,6 +40,16 @@ public class AccuweatherLocationDto implements LocationDto {
     @Override
     public String accuweatherLocationKey() {
         return locationKey;
+    }
+
+    @Override
+    public Double openweatherLatitude() {
+        return geoPosition.latitude;
+    }
+
+    @Override
+    public Double openweatherLongitude() {
+        return geoPosition.longitude;
     }
 
     private static class CountryDto {

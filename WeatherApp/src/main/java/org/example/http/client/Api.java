@@ -1,4 +1,4 @@
-package org.example.http;
+package org.example.http.client;
 
 import org.example.http.services.AccuweatherRetrofitService;
 import org.example.http.services.OpenweatherRetrofitService;

@@ -3,6 +3,8 @@ package org.example.http;
 import okhttp3.HttpUrl;
 import okhttp3.mockwebserver.MockResponse;
 import okhttp3.mockwebserver.MockWebServer;
+import org.example.http.client.Api;
+import org.example.http.client.ApiClient;
 import org.example.http.dtos.ForecastsDto;
 import org.example.http.dtos.LocationDto;
 import org.junit.jupiter.api.AfterEach;
@@ -127,6 +129,22 @@ class ApiClientTest {
     }
 
     @Test
+    void givenMalformedResponse_queryLocations_returnsEmptySet() throws Exception {
+        server.start();
+
+        Arrays.stream(Api.values()).forEach(api -> {
+            server.enqueue(new MockResponse()
+                    .setResponseCode(200)
+                    .setBody("[{}]"));
+            HttpUrl baseUrl = locationUrlFromApi(api);
+            ApiClient client = new ApiClient(api, baseUrl.toString());
+
+            Set<? extends LocationDto> response = client.queryLocations(() -> "some query");
+            assertTrue(response.isEmpty());
+        });
+    }
+
+    @Test
     void givenExampleResponse_accuweatherQueryLocations_returnsLocations() throws Exception {
         server.start();
         server.enqueue(getResponseFromFile(new File(RESOURCE_BASE_PATH + "exampleAccuweatherLocation.json")));
@@ -175,6 +193,10 @@ class ApiClientTest {
             @Override
             public Double openweatherLongitude() {
                 return longitude;
+            }
+            @Override
+            public boolean isProperlyFormed() {
+                return true;
             }
         };
     }

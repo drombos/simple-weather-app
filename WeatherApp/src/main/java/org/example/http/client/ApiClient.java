@@ -1,5 +1,6 @@
-package org.example.http;
+package org.example.http.client;
 
+import org.example.http.ApiQuery;
 import org.example.http.dtos.AccuweatherLocationDto;
 import org.example.http.dtos.Dto;
 import org.example.http.dtos.ForecastsDto;
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.ResourceBundle;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class ApiClient implements ApiDataSource {
     private final static String CREDENTIALS_PATH = "api";
@@ -27,7 +29,7 @@ public class ApiClient implements ApiDataSource {
         this.service = api.getService();
     }
 
-    ApiClient(Api api, String overrideUrl) {
+    public ApiClient(Api api, String overrideUrl) {
         this.api = api;
         this.apiKey = ResourceBundle.getBundle(CREDENTIALS_PATH).getString(api.credentialsKey);
         this.service = api.getService(overrideUrl);
@@ -63,7 +65,10 @@ public class ApiClient implements ApiDataSource {
         };
 
         try {
-            forecasts = callMethod.call(query);
+            Set<? extends LocationDto> dtoSet = callMethod.call(query);
+            if (dtoSet != null) {
+                forecasts = dtoSet.stream().filter(Dto::isProperlyFormed).collect(Collectors.toSet());
+            }
         } catch (IOException e) {
             System.out.printf(API_ERROR_MSG, api.name);
         }

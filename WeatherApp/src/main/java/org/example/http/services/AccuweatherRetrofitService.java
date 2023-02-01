@@ -17,6 +17,13 @@ non-sealed public interface AccuweatherRetrofitService extends Service {
             @Query("language") String locale
     );
 
+    @GET("/locations/v1/cities/geoposition/search")
+    Call<AccuweatherLocationDto> getLocationsByGeo(
+            @Query("apikey") String apiKey,
+            @Query("q") String query,
+            @Query("language") String locale
+    );
+
     @GET("/forecasts/v1/daily/5day/{locationKey}")
     Call<AccuweatherForecastsDto> getForecasts(
             @Path("locationKey") String locationKey,

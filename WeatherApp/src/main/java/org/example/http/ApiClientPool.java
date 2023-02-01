@@ -5,6 +5,7 @@ import org.example.http.client.ApiClient;
 import org.example.http.client.ApiDataSource;
 import org.example.http.dtos.ForecastsDto;
 import org.example.http.dtos.LocationDto;
+import org.example.http.query.ApiQuery;
 
 import java.util.*;
 import java.util.stream.Collectors;

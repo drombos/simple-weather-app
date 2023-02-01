@@ -2,7 +2,7 @@ package main.java.org.example;
 
 import java.util.Scanner;
 
-public class LocationQuery {
+public class LocationMenu {
 
     public static void main(String[] args) {
 
@@ -13,17 +13,17 @@ public class LocationQuery {
         String userCountry;
 
         do {
-            System.out.print("Enter the name of the city: ");
+            System.out.print("Wpisz nazwę miasta: ");
             userCity = scanner.nextLine();
             userLocation.setCity(userCity);
         } while (userCity.equals(""));
 
-        System.out.print("Enter the name of the state: ");
+        System.out.print("Wpisz nazwę województwa: ");
         userState = scanner.nextLine();
         userLocation.setState(userState);
 
 
-        System.out.print("Enter the name of the country: ");
+        System.out.print("Wpisz nazwę kraju: ");
         userCountry = scanner.nextLine();
         if (userCountry.equals("")) {
             userCountry = "Poland";

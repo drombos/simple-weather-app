@@ -6,8 +6,7 @@ import org.example.http.client.ApiDataSource;
 import org.example.http.dtos.ForecastsDto;
 import org.example.http.dtos.LocationDto;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ApiClientPool implements ApiDataSource {
@@ -42,5 +41,14 @@ public class ApiClientPool implements ApiDataSource {
         return forecastsSources.stream()
                 .flatMap(client -> client.queryForecasts(location).stream())
                 .collect(Collectors.toSet());
+    }
+
+    public Map<LocationDto, Set<? extends ForecastsDto>> queryForecasts(Collection<LocationDto> locations) {
+        Map<LocationDto, Set<? extends ForecastsDto>> locationToForecasts = new HashMap<>();
+        for (LocationDto location : locations) {
+            Set<? extends ForecastsDto> forecasts = queryForecasts(location);
+            locationToForecasts.put(location, forecasts);
+        }
+        return locationToForecasts;
     }
 }

@@ -15,5 +15,5 @@ public interface UI {
     DownloadForecastsUI getDownloadForecastsMenu();
     EndProgramUI getEndProgramMenu();
 
-    void otherError(String errorMsg);
+    ErrorUI getErrorUI();
 }

@@ -19,7 +19,8 @@ public class DbLocation implements DbObject {
     private Double longitude;
     @Column(name = "latitude")
     private Double latitude;
-    @Column(name = "accuweather_key", unique = true)
+    @Column(name = "accuweather_key",
+            unique = true)
     private String accuweatherKey;
 
     public DbLocation(String city, String state, String country, Double longitude, Double latitude,

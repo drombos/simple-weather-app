@@ -7,6 +7,7 @@ import org.example.http.query.ApiLocationQuery;
 import org.example.persistence.Dao;
 import org.example.persistence.ObjectMapper;
 import org.example.persistence.model.DbLocation;
+import org.example.ui.ErrorUI;
 import org.example.ui.submenu.AddLocationUI;
 
 import java.util.Set;
@@ -14,6 +15,7 @@ import java.util.Set;
 public class AddLocationService {
     public boolean perform() {
         AddLocationUI ui = App.getUI().getAddLocationMenu();
+        ErrorUI errorUI = App.getUI().getErrorUI();
 
         ApiLocationQuery query = ui.buildLocationQueryFromInput();
         Set<? extends LocationDto> matchingLocations = ApiClientPool.queryLocations(query);
@@ -31,7 +33,7 @@ public class AddLocationService {
         }
 
         if (location == null) {
-            App.getUI().otherError("Pusta lokalizacja zwrócona z API, może padło?");
+            errorUI.print("Pusta lokalizacja zwrócona z API, może padło?");
             return false;
         }
 
@@ -40,7 +42,7 @@ public class AddLocationService {
         try {
             locationToAdd = mapper.apiToDb(location);
         } catch (ObjectMapper.ParsingException e) {
-            App.getUI().otherError("Błędnie sformatowana / wybrakowana lokalizacja zwrócona z API, może padło?");
+            errorUI.print("Błędnie sformatowana / wybrakowana lokalizacja zwrócona z API, może padło?");
             return false;
         }
 

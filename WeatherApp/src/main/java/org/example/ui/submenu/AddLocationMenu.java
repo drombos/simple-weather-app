@@ -1,17 +1,21 @@
 package org.example.ui.submenu;
 
-import org.example.App;
-import org.example.AppComponent;
 import org.example.http.dtos.LocationDto;
 import org.example.http.query.ApiLocationQuery;
 import org.example.http.query.CityQuery;
+import org.example.ui.UIAddLocation;
 
 import java.util.*;
 
 //klasa odpowiedzialna za uzyskanie od użytkownika danych lokalizacji
 //punkt 1 submenu
-public class LocationMenu implements AppComponent {
-    private App app = null;
+public class AddLocationMenu implements UIAddLocation {
+//    private App app = null;
+
+    @Override
+    public ApiLocationQuery askForLocation() {
+        return buildLocationQueryFromInput();
+    }
 
     public ApiLocationQuery buildLocationQueryFromInput() {
         Scanner scanner = new Scanner(System.in);
@@ -59,10 +63,10 @@ public class LocationMenu implements AppComponent {
         return null;
     }
 
-    @Override
-    public void register(App app) {
-        this.app = app;
-    }
+//    @Override
+//    public void register(App app) {
+//        this.app = app;
+//    }
 }
 
 

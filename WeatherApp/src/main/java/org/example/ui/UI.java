@@ -1,14 +1,9 @@
 package org.example.ui;
 
-import org.example.AppComponent;
-import org.example.http.dtos.LocationDto;
-import org.example.http.query.ApiLocationQuery;
-
-import java.util.Collection;
-
-public interface UI extends AppComponent {
+public interface UI {
     void startMainMenu();
-    ApiLocationQuery askForLocation();
 
-    LocationDto specifyLocationFromMultiple(Collection<? extends LocationDto> locations);
+    void invalidCommand();
+
+    UIAddLocation getAddLocationHandler();
 }

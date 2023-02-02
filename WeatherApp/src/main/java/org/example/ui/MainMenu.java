@@ -1,13 +1,12 @@
 package org.example.ui;
 
 import org.example.App;
-import org.example.AppComponent;
 
 import java.util.Scanner;
 import java.util.function.Supplier;
 
-public class MainMenu implements AppComponent {
-    private App app = null;
+public class MainMenu {
+    private App app = App.getInstance();
 
     public void loop() {
         Scanner scanner = new Scanner(System.in);
@@ -28,15 +27,10 @@ public class MainMenu implements AppComponent {
                 case "b" -> runIfInit(() -> app.displayLocationsOption());
                 case "c" -> runIfInit(() -> app.getForecastsOption());
                 case "d" -> System.out.println("Koniec programu.");
-                default -> System.out.println("Wprowadź literę a, b, c lub d!");
+                default -> runIfInit(() -> app.invalidCommand());
             }
             System.out.println();
         }
-    }
-
-    @Override
-    public void register(App app) {
-        this.app = app;
     }
 
     private boolean runIfInit(Supplier<Boolean> command) {

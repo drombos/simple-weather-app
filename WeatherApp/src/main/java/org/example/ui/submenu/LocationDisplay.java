@@ -1,7 +1,7 @@
-package main.java.org.example.menu;
+package org.example.ui.submenu;
 
 //klasa odpowiedzialna za wyświetlanie lokalizacji
-//punkt 2 menu
+//punkt 2 submenu
 public class LocationDisplay {
 
     public void displayLocation() {

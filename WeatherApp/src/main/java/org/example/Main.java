@@ -1,9 +1,9 @@
-package main.java.org.example;
+package org.example;
 
 import org.example.ui.ConsoleUI;
-import org.example.ui.LocationMenu;
 import org.example.ui.MainMenu;
 import org.example.ui.UI;
+import org.example.ui.submenu.LocationMenu;
 
 public class Main {
     public static void main(String[] args) {

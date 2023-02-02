@@ -3,6 +3,8 @@ package org.example.ui;
 import org.example.App;
 import org.example.http.dtos.LocationDto;
 import org.example.http.query.ApiLocationQuery;
+import org.example.ui.submenu.LocationMenu;
+
 
 import java.util.Collection;
 

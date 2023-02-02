@@ -1,13 +1,19 @@
-package main.java.org.example;
+package main.java.org.example.menu;
 
 import java.util.Scanner;
 
+//klasa zarządzająca menu
 public class Menu {
 
-    public static void main(String[] args) {
+    public void startmenu() {
 
         Scanner scanner = new Scanner(System.in);
         String userOptions = "";
+        LocationDisplay locationDisplay = new LocationDisplay();
+        LocationMenu locationMenu = new LocationMenu();
+        ForecastDownload forecastDownload = new ForecastDownload();
+        ProgramEnd programEnd = new ProgramEnd();
+        ErrorMenu errorMenu = new ErrorMenu();
 
         while (!userOptions.equals("d")) {
             System.out.println("""
@@ -15,29 +21,32 @@ public class Menu {
                     a. Dodaj lokalizację.
                     b. Wyświetl wszystkie lokalizacje.
                     c. Pobierz prognozę pogody.
-                    d. Zakończ program.       
-                    """);
+                    d. Zakończ program.""");
             userOptions = scanner.nextLine();
 
             switch (userOptions) {
                 case "a":
-                    System.out.println("Wybrano opcję 1.");
+                    locationMenu.addLocation();
                     break;
                 case "b":
-                    System.out.println("Wybrano opcję 2.");
+                    locationDisplay.displayLocation();
                     break;
                 case "c":
-                    System.out.println("Wybrano opcję 3.");
+                    forecastDownload.downloadForecast();
                     break;
                 case "d":
-                    System.out.println("Koniec programu.");
+                    programEnd.displayEnd();
                     break;
                 default:
-                    System.out.println("Wprowadź litery a, b, c lub d!");
+                    errorMenu.displayError();
             }
-                    System.out.println();
+            System.out.println();
         }
     }
-
-
 }
+
+
+
+
+
+

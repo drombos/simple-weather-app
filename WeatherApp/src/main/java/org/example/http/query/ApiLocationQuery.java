@@ -1,9 +1,9 @@
 package org.example.http.query;
 
-public sealed interface ApiQuery permits CityQuery, GeoQuery {
+public sealed interface ApiLocationQuery permits CityQuery, GeoQuery {
      String toQuery();
 
-     static ApiQuery from(String input) throws IllegalArgumentException {
+     static ApiLocationQuery from(String input) throws MalformedQueryException {
           String[] splitInput = input.trim().split(" *[,;/] *", 3);
 
           if (splitInput.length == 1) {
@@ -31,7 +31,7 @@ public sealed interface ApiQuery permits CityQuery, GeoQuery {
           }
 
           //could not parse
-          throw new IllegalArgumentException("Nie udało się przeparsować wprowadzonego tekstu:" +
+          throw new MalformedQueryException("Nie udało się przeparsować wprowadzonego tekstu:" +
                   " nieprawidłowy format.");
      }
 }

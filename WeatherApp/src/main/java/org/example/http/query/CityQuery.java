@@ -1,6 +1,6 @@
 package org.example.http.query;
 
-public record CityQuery(String city, String state, String country) implements ApiQuery {
+public record CityQuery(String city, String state, String country) implements ApiLocationQuery {
 
     @Override
     public String toQuery() {

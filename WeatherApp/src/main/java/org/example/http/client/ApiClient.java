@@ -1,6 +1,6 @@
 package org.example.http.client;
 
-import org.example.http.query.ApiQuery;
+import org.example.http.query.ApiLocationQuery;
 import org.example.http.dtos.AccuweatherLocationDto;
 import org.example.http.dtos.Dto;
 import org.example.http.dtos.ForecastsDto;
@@ -60,7 +60,7 @@ public class ApiClient implements ApiDataSource {
     }
 
     @Override
-    public Set<? extends LocationDto> queryLocations(ApiQuery query) {
+    public Set<? extends LocationDto> queryLocations(ApiLocationQuery query) {
         Set<? extends LocationDto> forecasts = null;
         ApiLocationFunction callMethod = switch (api) {
             case ACCUWEATHER -> this::getAccuweatherLocations;
@@ -88,10 +88,10 @@ public class ApiClient implements ApiDataSource {
     }
 
     private interface ApiLocationFunction {
-        Set<? extends LocationDto> call(ApiQuery query) throws IOException;
+        Set<? extends LocationDto> call(ApiLocationQuery query) throws IOException;
     }
 
-    private Set<AccuweatherLocationDto> getAccuweatherLocations(ApiQuery query) throws IOException {
+    private Set<AccuweatherLocationDto> getAccuweatherLocations(ApiLocationQuery query) throws IOException {
         AccuweatherRetrofitService accuweather = (AccuweatherRetrofitService) service;
         if (CityQuery.class == query.getClass()) {
             return accuweather.getLocations(
@@ -115,12 +115,12 @@ public class ApiClient implements ApiDataSource {
             }
             return locationsSet;
         } else {
-            throw new IllegalArgumentException("Nieobsługiwany wariant ApiQuery. Klasa: "
+            throw new IllegalArgumentException("Nieobsługiwany wariant ApiLocationQuery. Klasa: "
                     + query.getClass().getSimpleName());
         }
     }
 
-    private Set<LocationDto> getOpenweatherLocations(ApiQuery query) throws IOException {
+    private Set<LocationDto> getOpenweatherLocations(ApiLocationQuery query) throws IOException {
         System.out.println("Ten endpoint jeszcze nie jest obsługiwany");
         return null;
     }

@@ -1,5 +1,6 @@
 package org.example;
 
+import org.example.persistence.HibernateRepository;
 import org.example.service.AddLocationService;
 import org.example.service.DisplayLocationsService;
 import org.example.service.DownloadForecastsService;
@@ -20,6 +21,7 @@ public class Main {
 
         App.init(
                 consoleUI,
+                new HibernateRepository(),
                 new AddLocationService(),
                 new DisplayLocationsService(),
                 new DownloadForecastsService(),

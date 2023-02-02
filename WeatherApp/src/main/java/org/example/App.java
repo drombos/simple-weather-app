@@ -1,15 +1,14 @@
 package org.example;
 
-import org.example.service.AddLocationService;
-import org.example.service.DisplayLocationsService;
-import org.example.service.DownloadForecastsService;
-import org.example.service.EndProgramService;
+import org.example.persistence.Dao;
+import org.example.service.*;
 import org.example.ui.UI;
 
 public class App {
     private static final App INSTANCE = new App();
     private static boolean initialized = false;
     private UI ui;
+    private Dao dao;
     private AddLocationService addLocationService;
     private DisplayLocationsService displayLocationsService;
     private DownloadForecastsService downloadForecastsService;
@@ -25,8 +24,13 @@ public class App {
         return getInstance().ui;
     }
 
+    public static Dao getDao() {
+        return getInstance().dao;
+    }
+
     public static void init(
             UI uiSolution,
+            Dao dao,
             AddLocationService addLocationService,
             DisplayLocationsService displayLocationsService,
             DownloadForecastsService downloadForecastsService,
@@ -34,6 +38,7 @@ public class App {
     ) {
         App app = getInstance();
         app.ui = uiSolution;
+        app.dao = dao;
         app.addLocationService = addLocationService;
         app.displayLocationsService = displayLocationsService;
         app.downloadForecastsService = downloadForecastsService;

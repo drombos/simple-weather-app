@@ -1,7 +1,7 @@
-package org.example.http.services;
+package org.example.http.api_service;
 
-import org.example.http.dtos.AccuweatherForecastsDto;
-import org.example.http.dtos.AccuweatherLocationDto;
+import org.example.http.dto.AccuweatherForecastsDto;
+import org.example.http.dto.AccuweatherLocationDto;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;

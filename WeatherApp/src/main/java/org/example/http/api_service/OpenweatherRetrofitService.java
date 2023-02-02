@@ -1,6 +1,6 @@
-package org.example.http.services;
+package org.example.http.api_service;
 
-import org.example.http.dtos.OpenweatherForecastsDto;
+import org.example.http.dto.OpenweatherForecastsDto;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Query;

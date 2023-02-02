@@ -1,8 +1,9 @@
 package org.example.ui.console;
 
-import org.example.http.dtos.LocationDto;
+import org.example.http.dto.LocationDto;
 import org.example.http.query.ApiLocationQuery;
 import org.example.http.query.CityQuery;
+import org.example.persistence.model.DbLocation;
 import org.example.ui.submenu.AddLocationUI;
 
 import java.util.*;
@@ -34,6 +35,7 @@ public class AddLocationMenu implements AddLocationUI {
         return new CityQuery(userCity, userState, userCountry);
     }
 
+    @Override
     public LocationDto specifyLocationFromMultiple(Collection<? extends LocationDto> locations) {
         List<LocationDto> list = new ArrayList<>(locations);
         for (int i = 0; i < list.size(); i++) {
@@ -55,6 +57,17 @@ public class AddLocationMenu implements AddLocationUI {
 
         System.out.println("Operacja anulowana.");
         return null;
+    }
+
+    @Override
+    public void noLocationsFound(ApiLocationQuery query) {
+        System.out.println("Nie znaleziono wyników dla zapytania:");
+        System.out.println(query);
+    }
+
+    @Override
+    public void locationAlreadyAdded(DbLocation location) {
+        System.out.println(location + " już jest w bazie danych.");
     }
 }
 

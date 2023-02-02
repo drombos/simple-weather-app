@@ -1,8 +1,8 @@
 package org.example.http.client;
 
 import org.example.http.query.ApiLocationQuery;
-import org.example.http.dtos.ForecastsDto;
-import org.example.http.dtos.LocationDto;
+import org.example.http.dto.ForecastsDto;
+import org.example.http.dto.LocationDto;
 
 import java.util.Set;
 

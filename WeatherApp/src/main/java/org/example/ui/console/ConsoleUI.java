@@ -51,4 +51,9 @@ public class ConsoleUI implements UI {
     public void invalidCommand() {
         System.out.println("Wprowadź litery a, b, c lub d!");
     }
+
+    @Override
+    public void otherError(String errorMsg) {
+        System.err.println(errorMsg);
+    }
 }

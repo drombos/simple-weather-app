@@ -6,6 +6,8 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
+import org.hibernate.type.StringType;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,8 +79,33 @@ public class HibernateRepository implements Dao {
             if (transaction != null) {
                 transaction.rollback();
             }
+            return new ArrayList<>();
         }
-        return new ArrayList<>();
+    }
+
+    @Override
+    public boolean doesAlreadyContain(DbLocation location) {
+        String accuKey = location.getAccuweatherKey();
+        Transaction transaction = null;
+        try (Session session = sessionFactory.getCurrentSession()) {
+            transaction = session.beginTransaction();
+            Query<String> query = session.createQuery("SELECT accuweatherKey FROM DbLocation L WHERE L" +
+                            ".accuweatherKey = :accuKey", String.class)
+                    .setParameter("accuKey", accuKey, StringType.INSTANCE)
+                    .setMaxResults(1);
+            List<String> keysFromDb = query.getResultList();
+            transaction.commit();
+
+            if (keysFromDb != null && !keysFromDb.isEmpty()) {
+                return true;
+            }
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+        }
+        return false;
     }
 
     public void closeAllResources() {

@@ -1,4 +1,4 @@
-package org.example.http.services;
+package org.example.http.api_service;
 
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;

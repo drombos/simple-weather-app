@@ -1,4 +1,4 @@
-package org.example.http.services;
+package org.example.http.api_service;
 
 import okhttp3.Request;
 import org.junit.jupiter.api.Test;

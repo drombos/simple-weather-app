@@ -3,7 +3,7 @@ package org.example.persistence.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "Location")
+@Table(name = "location")
 public class DbLocation implements DbObject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,7 +19,7 @@ public class DbLocation implements DbObject {
     private Double longitude;
     @Column(name = "latitude")
     private Double latitude;
-    @Column(name = "accuweather_key")
+    @Column(name = "accuweather_key", unique = true)
     private String accuweatherKey;
 
     public DbLocation(String city, String state, String country, Double longitude, Double latitude,
@@ -112,14 +112,6 @@ public class DbLocation implements DbObject {
 
     @Override
     public String toString() {
-        return "DbLocation{" +
-                "id=" + id +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", country='" + country + '\'' +
-                ", longitude=" + longitude +
-                ", latitude=" + latitude +
-                ", accuweatherKey='" + accuweatherKey + '\'' +
-                '}';
+        return city + " " + state + " " + country;
     }
 }

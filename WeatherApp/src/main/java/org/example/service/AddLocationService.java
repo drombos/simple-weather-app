@@ -2,8 +2,11 @@ package org.example.service;
 
 import org.example.App;
 import org.example.http.ApiClientPool;
-import org.example.http.dtos.LocationDto;
+import org.example.http.dto.LocationDto;
 import org.example.http.query.ApiLocationQuery;
+import org.example.persistence.Dao;
+import org.example.persistence.ObjectMapper;
+import org.example.persistence.model.DbLocation;
 import org.example.ui.submenu.AddLocationUI;
 
 import java.util.Set;
@@ -16,6 +19,7 @@ public class AddLocationService {
         Set<? extends LocationDto> matchingLocations = ApiClientPool.queryLocations(query);
 
         if (matchingLocations.isEmpty()) {
+            ui.noLocationsFound(query);
             return false;
         }
 
@@ -26,6 +30,26 @@ public class AddLocationService {
             location = matchingLocations.stream().toList().get(0);
         }
 
-        return location != null;
+        if (location == null) {
+            App.getUI().otherError("Pusta lokalizacja zwrócona z API, może padło?");
+            return false;
+        }
+
+        ObjectMapper mapper = new ObjectMapper();
+        DbLocation locationToAdd;
+        try {
+            locationToAdd = mapper.apiToDb(location);
+        } catch (ObjectMapper.ParsingException e) {
+            App.getUI().otherError("Błędnie sformatowana / wybrakowana lokalizacja zwrócona z API, może padło?");
+            return false;
+        }
+
+        Dao dao = App.getDao();
+        if (dao.doesAlreadyContain(locationToAdd)) {
+            ui.locationAlreadyAdded(locationToAdd);
+            return false;
+        }
+
+        return dao.create(locationToAdd);
     }
 }

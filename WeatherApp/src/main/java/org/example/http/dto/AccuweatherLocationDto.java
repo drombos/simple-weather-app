@@ -1,4 +1,4 @@
-package org.example.http.dtos;
+package org.example.http.dto;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -17,6 +17,30 @@ public class AccuweatherLocationDto implements LocationDto {
 
     @SerializedName("GeoPosition")
     private GeoPositionDto geoPosition;
+
+    public String getLocationKey() {
+        return locationKey;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public String getCountry() {
+        return country.name;
+    }
+
+    public String getArea() {
+        return area.type + " " + area.name;
+    }
+
+    public Double getLongitude() {
+        return geoPosition.longitude;
+    }
+
+    public Double getLatitude() {
+        return geoPosition.latitude;
+    }
 
     @Override
     public boolean isProperlyFormed() {

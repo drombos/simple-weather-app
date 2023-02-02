@@ -1,15 +1,15 @@
 package org.example.http.client;
 
 import org.example.http.query.ApiLocationQuery;
-import org.example.http.dtos.AccuweatherLocationDto;
-import org.example.http.dtos.Dto;
-import org.example.http.dtos.ForecastsDto;
-import org.example.http.dtos.LocationDto;
+import org.example.http.dto.AccuweatherLocationDto;
+import org.example.http.dto.Dto;
+import org.example.http.dto.ForecastsDto;
+import org.example.http.dto.LocationDto;
 import org.example.http.query.CityQuery;
 import org.example.http.query.GeoQuery;
-import org.example.http.services.AccuweatherRetrofitService;
-import org.example.http.services.OpenweatherRetrofitService;
-import org.example.http.services.Service;
+import org.example.http.api_service.AccuweatherRetrofitService;
+import org.example.http.api_service.OpenweatherRetrofitService;
+import org.example.http.api_service.Service;
 
 import java.io.IOException;
 import java.util.HashSet;

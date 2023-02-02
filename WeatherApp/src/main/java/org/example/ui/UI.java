@@ -14,4 +14,6 @@ public interface UI {
     DisplayLocationsUI getDisplayLocationsMenu();
     DownloadForecastsUI getDownloadForecastsMenu();
     EndProgramUI getEndProgramMenu();
+
+    void otherError(String errorMsg);
 }

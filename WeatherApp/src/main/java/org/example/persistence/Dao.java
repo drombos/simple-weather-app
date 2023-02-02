@@ -8,4 +8,6 @@ public interface Dao {
     boolean create(DbLocation location);
 
     List<DbLocation> readAll();
+
+    boolean doesAlreadyContain(DbLocation location);
 }

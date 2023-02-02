@@ -1,10 +1,12 @@
 package org.example.http.client;
 
-import org.example.http.ApiQuery;
+import org.example.http.query.ApiLocationQuery;
 import org.example.http.dtos.AccuweatherLocationDto;
 import org.example.http.dtos.Dto;
 import org.example.http.dtos.ForecastsDto;
 import org.example.http.dtos.LocationDto;
+import org.example.http.query.CityQuery;
+import org.example.http.query.GeoQuery;
 import org.example.http.services.AccuweatherRetrofitService;
 import org.example.http.services.OpenweatherRetrofitService;
 import org.example.http.services.Service;
@@ -45,7 +47,8 @@ public class ApiClient implements ApiDataSource {
 
         try {
             ForecastsDto dto = (ForecastsDto) callMethod.call(location);
-            if (dto != null && dto.isProperlyFormed()) forecasts.add(dto);
+            if (dto != null && dto.isProperlyFormed())
+                forecasts.add(dto);
 
         } catch (IOException e) {
             System.out.printf(API_ERROR_MSG, api.name);
@@ -57,7 +60,7 @@ public class ApiClient implements ApiDataSource {
     }
 
     @Override
-    public Set<? extends LocationDto> queryLocations(ApiQuery query) {
+    public Set<? extends LocationDto> queryLocations(ApiLocationQuery query) {
         Set<? extends LocationDto> forecasts = null;
         ApiLocationFunction callMethod = switch (api) {
             case ACCUWEATHER -> this::getAccuweatherLocations;
@@ -85,17 +88,39 @@ public class ApiClient implements ApiDataSource {
     }
 
     private interface ApiLocationFunction {
-        Set<? extends LocationDto> call(ApiQuery query) throws IOException;
+        Set<? extends LocationDto> call(ApiLocationQuery query) throws IOException;
     }
 
-    private Set<AccuweatherLocationDto> getAccuweatherLocations(ApiQuery query) throws IOException {
+    private Set<AccuweatherLocationDto> getAccuweatherLocations(ApiLocationQuery query) throws IOException {
         AccuweatherRetrofitService accuweather = (AccuweatherRetrofitService) service;
-        return accuweather.getLocations(apiKey, query.toQuery(), "pl-pl")
-                .execute()
-                .body();
+        if (CityQuery.class == query.getClass()) {
+            return accuweather.getLocations(
+                            apiKey,
+                            query.toQuery(),
+                            "pl-pl"
+                    )
+                    .execute()
+                    .body();
+        } else if (GeoQuery.class == query.getClass()) {
+            AccuweatherLocationDto fromApi = accuweather.getLocationsByGeo(
+                            apiKey,
+                            query.toQuery(),
+                            "pl-pl"
+                    )
+                    .execute()
+                    .body();
+            Set<AccuweatherLocationDto> locationsSet = new HashSet<>();
+            if (fromApi != null) {
+                locationsSet.add(fromApi);
+            }
+            return locationsSet;
+        } else {
+            throw new IllegalArgumentException("Nieobsługiwany wariant ApiLocationQuery. Klasa: "
+                    + query.getClass().getSimpleName());
+        }
     }
 
-    private Set<LocationDto> getOpenweatherLocations(ApiQuery query) throws IOException {
+    private Set<LocationDto> getOpenweatherLocations(ApiLocationQuery query) throws IOException {
         System.out.println("Ten endpoint jeszcze nie jest obsługiwany");
         return null;
     }

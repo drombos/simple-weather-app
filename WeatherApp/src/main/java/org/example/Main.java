@@ -1,16 +1,15 @@
 package main.java.org.example;
 
-import main.java.org.example.menu.Menu;
+import org.example.ui.ConsoleUI;
+import org.example.ui.LocationMenu;
+import org.example.ui.MainMenu;
+import org.example.ui.UI;
 
-//klasa rozruchowa
 public class Main {
     public static void main(String[] args) {
+        UI ui = new ConsoleUI(new MainMenu(), new LocationMenu());
 
-        Menu menu = new Menu();
-        menu.startmenu();
-
-
-
-
+        App app = new App(ui);
+        app.run();
     }
 }

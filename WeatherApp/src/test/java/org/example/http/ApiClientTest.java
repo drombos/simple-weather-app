@@ -7,6 +7,7 @@ import org.example.http.client.Api;
 import org.example.http.client.ApiClient;
 import org.example.http.dtos.ForecastsDto;
 import org.example.http.dtos.LocationDto;
+import org.example.http.query.CityQuery;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -107,7 +108,7 @@ class ApiClientTest {
             HttpUrl baseUrl = locationUrlFromApi(api);
             ApiClient client = new ApiClient(api, baseUrl.toString());
 
-            Set<? extends LocationDto> response = client.queryLocations(() -> "fail query");
+            Set<? extends LocationDto> response = client.queryLocations(fakeCityQuery());
             assertTrue(response.isEmpty());
         });
     }
@@ -123,7 +124,7 @@ class ApiClientTest {
             HttpUrl baseUrl = locationUrlFromApi(api);
             ApiClient client = new ApiClient(api, baseUrl.toString());
 
-            Set<? extends LocationDto> response = client.queryLocations(() -> "empty query");
+            Set<? extends LocationDto> response = client.queryLocations(fakeCityQuery());
             assertTrue(response.isEmpty());
         });
     }
@@ -139,7 +140,7 @@ class ApiClientTest {
             HttpUrl baseUrl = locationUrlFromApi(api);
             ApiClient client = new ApiClient(api, baseUrl.toString());
 
-            Set<? extends LocationDto> response = client.queryLocations(() -> "some query");
+            Set<? extends LocationDto> response = client.queryLocations(fakeCityQuery());
             assertTrue(response.isEmpty());
         });
     }
@@ -152,7 +153,7 @@ class ApiClientTest {
         HttpUrl baseUrl = locationUrlFromApi(Api.ACCUWEATHER);
         ApiClient client = new ApiClient(Api.ACCUWEATHER, baseUrl.toString());
 
-        Set<? extends LocationDto> response = client.queryLocations(() -> "valid query");
+        Set<? extends LocationDto> response = client.queryLocations(fakeCityQuery());
         assertEquals(4, response.size());
         assertEquals(4, response.stream().map(Object::toString).filter(str -> str.contains("Jarocin")).count());
     }
@@ -199,5 +200,9 @@ class ApiClientTest {
                 return true;
             }
         };
+    }
+
+    private CityQuery fakeCityQuery() {
+        return new CityQuery("asdasd", null, null);
     }
 }

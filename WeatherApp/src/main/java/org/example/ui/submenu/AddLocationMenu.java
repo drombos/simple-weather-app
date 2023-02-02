@@ -1,7 +1,5 @@
 package org.example.ui.submenu;
 
-import org.example.App;
-import org.example.AppCallback;
 import org.example.http.dtos.LocationDto;
 import org.example.http.query.ApiLocationQuery;
 import org.example.http.query.CityQuery;

@@ -1,11 +1,27 @@
 package org.example.ui;
 
-import org.example.AppCallback;
+public class UIManager {
+    private UI ui;
+    private UIManager() {}
+    private static class Holder {
+        private static final UIManager INSTANCE = new UIManager();
+    }
+    public static UIManager getInstance() {
+        return Holder.INSTANCE;
+    }
 
-public interface UIManager extends AppCallback {
-    void startMainMenu();
+    public static void init(UI uiSolution) {
+        getInstance().ui = uiSolution;
+    }
+    public void startMainMenu() {
+        ui.startMainMenu();
+    }
 
-    void invalidCommand();
+    public void invalidCommand() {
+        ui.invalidCommand();
+    }
 
-    UIAddLocation getAddLocationHandler();
+    public UIAddLocation getAddLocationHandler() {
+        return ui.getAddLocationHandler();
+    }
 }

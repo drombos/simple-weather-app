@@ -9,21 +9,25 @@ import org.example.ui.UIManager;
 import java.util.Set;
 
 public class App {
-    private final UIManager uiManager;
-    private final AddLocationService addLocationService;
-    App(UIManager uiManager, AddLocationService addLocationService) {
-        this.uiManager = uiManager;
-        uiManager.register(this);
-
-        this.addLocationService = addLocationService;
+    private App() {}
+    private static class Holder {
+        private static final App INSTANCE = new App();
+    }
+    public static App getInstance() {
+        return Holder.INSTANCE;
     }
 
+    public static void init(AddLocationService addLocationService) {
+        getInstance().addLocationService = addLocationService;
+    }
+    private AddLocationService addLocationService;
+
     void run() {
-        uiManager.startMainMenu();
+        UIManager.getInstance().startMainMenu();
     }
 
     public boolean addLocationOption() {
-        return addLocationService.addLocationOption(uiManager.getAddLocationHandler());
+        return addLocationService.addLocationOption();
     }
 
     public boolean displayLocationsOption() {
@@ -37,7 +41,7 @@ public class App {
     }
 
     public boolean invalidCommand() {
-        uiManager.invalidCommand();
+        UIManager.getInstance().invalidCommand();
         return true;
     }
 }

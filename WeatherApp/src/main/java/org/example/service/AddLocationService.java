@@ -1,16 +1,17 @@
 package org.example.service;
 
-import org.example.App;
-import org.example.AppCallback;
 import org.example.http.ApiClientPool;
 import org.example.http.dtos.LocationDto;
 import org.example.http.query.ApiLocationQuery;
 import org.example.ui.UIAddLocation;
+import org.example.ui.UIManager;
 
 import java.util.Set;
 
 public class AddLocationService {
-    public boolean addLocationOption(UIAddLocation addLocationUI) {
+    public boolean addLocationOption() {
+        UIAddLocation addLocationUI = UIManager.getInstance().getAddLocationHandler();
+
         ApiLocationQuery query = addLocationUI.askForLocation();
         Set<? extends LocationDto> locations = ApiClientPool.queryLocations(query);
 

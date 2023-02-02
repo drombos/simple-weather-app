@@ -1,13 +1,12 @@
 package org.example.ui;
 
 import org.example.App;
-import org.example.AppCallback;
 
 import java.util.Scanner;
 import java.util.function.Supplier;
 
-public class MainMenu implements AppCallback {
-    private App app = null;
+public class MainMenu {
+    private App app = App.getInstance();
 
     public void loop() {
         Scanner scanner = new Scanner(System.in);
@@ -32,11 +31,6 @@ public class MainMenu implements AppCallback {
             }
             System.out.println();
         }
-    }
-
-    @Override
-    public void register(App app) {
-        this.app = app;
     }
 
     private boolean runIfInit(Supplier<Boolean> command) {

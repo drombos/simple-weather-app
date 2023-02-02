@@ -8,18 +8,16 @@ import org.example.ui.submenu.*;
 
 public class Main {
     public static void main(String[] args) {
-        UIManager uiManager = new ConsoleUI(
+        UIManager.init(new ConsoleUI(
                 new MainMenu(),
                 new AddLocationMenu(),
                 new LocationDisplay(),
                 new ForecastDownload(),
                 new ProgramEnd()
-        );
+        ));
 
-        App app = new App(
-                uiManager,
-                new AddLocationService()
-        );
-        app.run();
+        App.init(new AddLocationService());
+
+        App.getInstance().run();
     }
 }

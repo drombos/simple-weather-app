@@ -3,41 +3,27 @@ package org.example;
 import org.example.http.ApiClientPool;
 import org.example.http.dtos.LocationDto;
 import org.example.http.query.ApiLocationQuery;
-import org.example.ui.UI;
+import org.example.service.AddLocationService;
+import org.example.ui.UIManager;
 
 import java.util.Set;
 
 public class App {
-    private final UI ui;
-    App(UI ui) {
-        this.ui = ui;
-        ui.register(this);
+    private final UIManager uiManager;
+    private final AddLocationService addLocationService;
+    App(UIManager uiManager, AddLocationService addLocationService) {
+        this.uiManager = uiManager;
+        uiManager.register(this);
+
+        this.addLocationService = addLocationService;
     }
 
     void run() {
-        ui.startMainMenu();
+        uiManager.startMainMenu();
     }
 
     public boolean addLocationOption() {
-        ApiLocationQuery query = ui.askForLocation();
-        Set<? extends LocationDto> locations = ApiClientPool.queryLocations(query);
-
-        System.out.println("QUERY: " + query.toQuery());
-
-        if (locations.isEmpty()) {
-            return false;
-        }
-
-        LocationDto location;
-        if (locations.size() > 1) {
-            location = ui.specifyLocationFromMultiple(locations);
-        } else {
-            location = locations.stream().toList().get(0);
-        }
-
-        System.out.println(location);
-
-        return location != null;
+        return addLocationService.addLocationOption(uiManager.getAddLocationHandler());
     }
 
     public boolean displayLocationsOption() {
@@ -48,5 +34,10 @@ public class App {
     public boolean getForecastsOption() {
         System.out.println("Wybrano opcję 3.");
         return false;
+    }
+
+    public boolean invalidCommand() {
+        uiManager.invalidCommand();
+        return true;
     }
 }

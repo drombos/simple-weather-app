@@ -3,26 +3,42 @@ package org.example.ui;
 import org.example.App;
 import org.example.http.dtos.LocationDto;
 import org.example.http.query.ApiLocationQuery;
-import org.example.ui.submenu.LocationMenu;
+import org.example.ui.submenu.*;
 
 
 import java.util.Collection;
 
-public class ConsoleUI implements UI {
+public class ConsoleUI implements UIManager {
     private App app = null;
     private final MainMenu mainMenu;
-    private final LocationMenu locationMenu;
+    private final AddLocationMenu addLocationMenu;
+    private final LocationDisplay locationDisplay;
+    private final ForecastDownload forecastDownload;
+    private final ProgramEnd programEnd;
 
-    public ConsoleUI(MainMenu mainMenu, LocationMenu locationMenu) {
+    public ConsoleUI(MainMenu mainMenu,
+                     AddLocationMenu addLocationMenu,
+                     LocationDisplay locationDisplay,
+                     ForecastDownload forecastDownload,
+                     ProgramEnd programEnd
+    ) {
         this.mainMenu = mainMenu;
-        this.locationMenu = locationMenu;
+        this.addLocationMenu = addLocationMenu;
+        this.locationDisplay = locationDisplay;
+        this.forecastDownload = forecastDownload;
+        this.programEnd = programEnd;
     }
 
     @Override
     public void register(App app) {
         this.app = app;
         this.mainMenu.register(app);
-        this.locationMenu.register(app);
+        //this.addLocationMenu.register(app);
+    }
+
+    @Override
+    public UIAddLocation getAddLocationHandler() {
+        return addLocationMenu;
     }
 
     @Override
@@ -31,12 +47,7 @@ public class ConsoleUI implements UI {
     }
 
     @Override
-    public ApiLocationQuery askForLocation() {
-        return locationMenu.buildLocationQueryFromInput();
-    }
-
-    @Override
-    public LocationDto specifyLocationFromMultiple(Collection<? extends LocationDto> locations) {
-        return locationMenu.specifyLocationFromMultiple(locations);
+    public void invalidCommand() {
+        System.out.println("Wprowadź litery a, b, c lub d!");
     }
 }

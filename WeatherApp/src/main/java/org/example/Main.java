@@ -1,15 +1,25 @@
 package org.example;
 
+import org.example.service.AddLocationService;
 import org.example.ui.ConsoleUI;
 import org.example.ui.MainMenu;
-import org.example.ui.UI;
-import org.example.ui.submenu.LocationMenu;
+import org.example.ui.UIManager;
+import org.example.ui.submenu.*;
 
 public class Main {
     public static void main(String[] args) {
-        UI ui = new ConsoleUI(new MainMenu(), new LocationMenu());
+        UIManager uiManager = new ConsoleUI(
+                new MainMenu(),
+                new AddLocationMenu(),
+                new LocationDisplay(),
+                new ForecastDownload(),
+                new ProgramEnd()
+        );
 
-        App app = new App(ui);
+        App app = new App(
+                uiManager,
+                new AddLocationService()
+        );
         app.run();
     }
 }

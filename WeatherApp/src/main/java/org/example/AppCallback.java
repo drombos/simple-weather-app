@@ -1,5 +1,5 @@
 package org.example;
 
-public interface AppComponent {
+public interface AppCallback {
     void register(App app);
 }

@@ -3,10 +3,9 @@ package org.example.ui;
 import org.example.App;
 
 import java.util.Scanner;
-import java.util.function.Supplier;
 
 public class MainMenu {
-    private App app = App.getInstance();
+    private final App app = App.getInstance();
 
     public void loop() {
         Scanner scanner = new Scanner(System.in);
@@ -23,20 +22,13 @@ public class MainMenu {
             usersChoice = scanner.nextLine();
 
             switch (usersChoice) {
-                case "a" -> runIfInit(() -> app.addLocationOption());
-                case "b" -> runIfInit(() -> app.displayLocationsOption());
-                case "c" -> runIfInit(() -> app.getForecastsOption());
-                case "d" -> System.out.println("Koniec programu.");
-                default -> runIfInit(() -> app.invalidCommand());
+                case "a" -> app.addLocationOption();
+                case "b" -> app.displayLocationsOption();
+                case "c" -> app.downloadForecastsOption();
+                case "d" -> app.endProgramOption();
+                default -> app.invalidCommand();
             }
             System.out.println();
         }
-    }
-
-    private boolean runIfInit(Supplier<Boolean> command) {
-        if (app == null) {
-            throw new IllegalStateException("BŁĄD: Aplikacja nie została prawidłowa zainicjalizowana.");
-        }
-        return command.get();
     }
 }

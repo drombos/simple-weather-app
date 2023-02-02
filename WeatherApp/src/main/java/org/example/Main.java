@@ -1,22 +1,30 @@
 package org.example;
 
 import org.example.service.AddLocationService;
-import org.example.ui.ConsoleUI;
+import org.example.service.DisplayLocationsService;
+import org.example.service.DownloadForecastsService;
+import org.example.service.EndProgramService;
+import org.example.ui.console.*;
 import org.example.ui.MainMenu;
-import org.example.ui.UIManager;
-import org.example.ui.submenu.*;
 
 public class Main {
     public static void main(String[] args) {
-        UIManager.init(new ConsoleUI(
+
+        ConsoleUI consoleUI = new ConsoleUI(
                 new MainMenu(),
                 new AddLocationMenu(),
-                new LocationDisplay(),
-                new ForecastDownload(),
-                new ProgramEnd()
-        ));
+                new DisplayLocationsMenu(),
+                new DownloadForecastsMenu(),
+                new EndProgramMenu()
+        );
 
-        App.init(new AddLocationService());
+        App.init(
+                consoleUI,
+                new AddLocationService(),
+                new DisplayLocationsService(),
+                new DownloadForecastsService(),
+                new EndProgramService()
+        );
 
         App.getInstance().run();
     }

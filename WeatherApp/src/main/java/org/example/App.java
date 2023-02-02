@@ -1,47 +1,72 @@
 package org.example;
 
-import org.example.http.ApiClientPool;
-import org.example.http.dtos.LocationDto;
-import org.example.http.query.ApiLocationQuery;
 import org.example.service.AddLocationService;
-import org.example.ui.UIManager;
-
-import java.util.Set;
+import org.example.service.DisplayLocationsService;
+import org.example.service.DownloadForecastsService;
+import org.example.service.EndProgramService;
+import org.example.ui.UI;
 
 public class App {
+    private static final App INSTANCE = new App();
+    private static boolean initialized = false;
+    private UI ui;
+    private AddLocationService addLocationService;
+    private DisplayLocationsService displayLocationsService;
+    private DownloadForecastsService downloadForecastsService;
+    private EndProgramService endProgramService;
+
     private App() {}
-    private static class Holder {
-        private static final App INSTANCE = new App();
-    }
+
     public static App getInstance() {
-        return Holder.INSTANCE;
+        return INSTANCE;
     }
 
-    public static void init(AddLocationService addLocationService) {
-        getInstance().addLocationService = addLocationService;
+    public static UI getUI() {
+        return getInstance().ui;
     }
-    private AddLocationService addLocationService;
+
+    public static void init(
+            UI uiSolution,
+            AddLocationService addLocationService,
+            DisplayLocationsService displayLocationsService,
+            DownloadForecastsService downloadForecastsService,
+            EndProgramService endProgramService
+    ) {
+        App app = getInstance();
+        app.ui = uiSolution;
+        app.addLocationService = addLocationService;
+        app.displayLocationsService = displayLocationsService;
+        app.downloadForecastsService = downloadForecastsService;
+        app.endProgramService = endProgramService;
+
+        initialized = true;
+    }
 
     void run() {
-        UIManager.getInstance().startMainMenu();
+        if (!initialized) {
+            throw new IllegalStateException("Najpierw zainicjalizuj App wywołując App::init");
+        }
+        ui.startMainMenu();
     }
 
     public boolean addLocationOption() {
-        return addLocationService.addLocationOption();
+        return addLocationService.perform();
     }
 
     public boolean displayLocationsOption() {
-        System.out.println("Wybrano opcję 2.");
-        return false;
+        return displayLocationsService.perform();
     }
 
-    public boolean getForecastsOption() {
-        System.out.println("Wybrano opcję 3.");
-        return false;
+    public boolean downloadForecastsOption() {
+        return downloadForecastsService.perform();
+    }
+
+    public boolean endProgramOption() {
+        return endProgramService.perform();
     }
 
     public boolean invalidCommand() {
-        UIManager.getInstance().invalidCommand();
+        ui.invalidCommand();
         return true;
     }
 }

@@ -1,4 +1,4 @@
-package main.java.org.example.menu;
+package org.example.ui.submenu;
 
 //klasa odpowiedzialna za złe wybranie opcji przez użytkownika.
 public class ErrorMenu {

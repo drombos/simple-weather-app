@@ -1,4 +1,4 @@
-package org.example.ui;
+package org.example.ui.submenu;
 
 import org.example.App;
 import org.example.AppComponent;
@@ -8,6 +8,8 @@ import org.example.http.query.CityQuery;
 
 import java.util.*;
 
+//klasa odpowiedzialna za uzyskanie od użytkownika danych lokalizacji
+//punkt 1 submenu
 public class LocationMenu implements AppComponent {
     private App app = null;
 

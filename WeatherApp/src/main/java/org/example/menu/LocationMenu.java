@@ -1,10 +1,14 @@
-package main.java.org.example;
+package main.java.org.example.menu;
+
+import main.java.org.example.CityQuery;
 
 import java.util.Scanner;
 
+//klasa odpowiedzialna za uzyskanie od użytkownika danych lokalizacji
+//punkt 1 menu
 public class LocationMenu {
 
-    public static void location() {
+    public void addLocation() {
 
         Scanner scanner = new Scanner(System.in);
         String userCity;
@@ -28,7 +32,6 @@ public class LocationMenu {
 
 
         CityQuery userCityQuery = new CityQuery(userCity, userState, userCountry);
-        System.out.println(userCityQuery);
     }
 }
 

@@ -1,7 +1,16 @@
-package org.example;
+package main.java.org.example;
 
+import main.java.org.example.menu.Menu;
+
+//klasa rozruchowa
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello world!");
+
+        Menu menu = new Menu();
+        menu.startmenu();
+
+
+
+
     }
 }

@@ -1,6 +1,10 @@
 package org.example.ui;
 
 import org.example.App;
+import org.example.handler.AddLocationHandler;
+import org.example.handler.DisplayLocationsHandler;
+import org.example.handler.DownloadForecastsHandler;
+import org.example.handler.EndProgramHandler;
 
 import java.util.Scanner;
 
@@ -22,10 +26,10 @@ public class MainMenu {
             usersChoice = scanner.nextLine();
 
             switch (usersChoice) {
-                case "a" -> app.addLocationOption();
-                case "b" -> app.displayLocationsOption();
-                case "c" -> app.downloadForecastsOption();
-                case "d" -> app.endProgramOption();
+                case "a" -> app.performAction(AddLocationHandler.class);
+                case "b" -> app.performAction(DisplayLocationsHandler.class);
+                case "c" -> app.performAction(DownloadForecastsHandler.class);
+                case "d" -> app.performAction(EndProgramHandler.class);
                 default -> app.invalidCommand();
             }
             System.out.println();

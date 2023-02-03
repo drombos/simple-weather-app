@@ -55,7 +55,6 @@ public class AddLocationMenu implements AddLocationUI {
             System.out.println("Niewłaściwy format ID.");
         }
 
-        System.out.println("Operacja anulowana.");
         return null;
     }
 

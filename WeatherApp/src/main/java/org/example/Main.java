@@ -1,10 +1,10 @@
 package org.example;
 
 import org.example.persistence.HibernateRepository;
-import org.example.service.AddLocationService;
-import org.example.service.DisplayLocationsService;
-import org.example.service.DownloadForecastsService;
-import org.example.service.EndProgramService;
+import org.example.handler.AddLocationHandler;
+import org.example.handler.DisplayLocationsHandler;
+import org.example.handler.DownloadForecastsHandler;
+import org.example.handler.EndProgramHandler;
 import org.example.ui.console.*;
 import org.example.ui.MainMenu;
 
@@ -20,15 +20,29 @@ public class Main {
                 new EndProgramMenu()
         );
 
-        App.init(
-                consoleUI,
-                new HibernateRepository(),
-                new AddLocationService(),
-                new DisplayLocationsService(),
-                new DownloadForecastsService(),
-                new EndProgramService()
-        );
+        HibernateRepository dao = new HibernateRepository();
 
-        App.getInstance().run();
+        App.runWith(
+                consoleUI,
+                new AddLocationHandler(
+                        consoleUI.getAddLocationMenu(),
+                        consoleUI.getErrorUI(),
+                        dao
+                ),
+                new DisplayLocationsHandler(
+                        consoleUI.getDisplayLocationsMenu(),
+                        consoleUI.getErrorUI(),
+                        dao
+                ),
+                new DownloadForecastsHandler(
+                        consoleUI.getDownloadForecastsMenu(),
+                        consoleUI.getErrorUI(),
+                        dao
+                ),
+                new EndProgramHandler(
+                        consoleUI.getEndProgramMenu(),
+                        consoleUI.getErrorUI(),
+                        dao)
+        );
     }
 }

@@ -1,77 +1,76 @@
 package org.example;
 
-import org.example.persistence.Dao;
-import org.example.service.*;
+import org.example.handler.*;
 import org.example.ui.UI;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class App {
     private static final App INSTANCE = new App();
     private static boolean initialized = false;
     private UI ui;
-    private Dao dao;
-    private AddLocationService addLocationService;
-    private DisplayLocationsService displayLocationsService;
-    private DownloadForecastsService downloadForecastsService;
-    private EndProgramService endProgramService;
+    private Map<Class<? extends AbstractCommandHandler<?>>, AbstractCommandHandler<?>> handlers;
 
-    private App() {}
+    private App() { }
 
     public static App getInstance() {
         return INSTANCE;
     }
 
-    public static UI getUI() {
-        return getInstance().ui;
-    }
 
-    public static Dao getDao() {
-        return getInstance().dao;
-    }
-
-    public static void init(
+    static void runWith(
             UI uiSolution,
-            Dao dao,
-            AddLocationService addLocationService,
-            DisplayLocationsService displayLocationsService,
-            DownloadForecastsService downloadForecastsService,
-            EndProgramService endProgramService
+            AddLocationHandler addLocationService,
+            DisplayLocationsHandler displayLocationsService,
+            DownloadForecastsHandler downloadForecastsService,
+            EndProgramHandler endProgramService
+    ) {
+        App app = getInstance();
+        app.init(
+                uiSolution,
+                addLocationService,
+                displayLocationsService,
+                downloadForecastsService,
+                endProgramService
+        );
+
+        app.ui.startMainMenu();
+    }
+
+    private void init(
+            UI uiSolution,
+            AddLocationHandler addLocationHandler,
+            DisplayLocationsHandler displayLocationsHandler,
+            DownloadForecastsHandler downloadForecastsHandler,
+            EndProgramHandler endProgramHandler
     ) {
         App app = getInstance();
         app.ui = uiSolution;
-        app.dao = dao;
-        app.addLocationService = addLocationService;
-        app.displayLocationsService = displayLocationsService;
-        app.downloadForecastsService = downloadForecastsService;
-        app.endProgramService = endProgramService;
+
+        handlers = new HashMap<>();
+        handlers.put(AddLocationHandler.class, addLocationHandler);
+        handlers.put(DisplayLocationsHandler.class, displayLocationsHandler);
+        handlers.put(DownloadForecastsHandler.class, downloadForecastsHandler);
+        handlers.put(EndProgramHandler.class, endProgramHandler);
 
         initialized = true;
-    }
-
-    void run() {
-        if (!initialized) {
-            throw new IllegalStateException("Najpierw zainicjalizuj App wywołując App::init");
-        }
-        ui.startMainMenu();
-    }
-
-    public boolean addLocationOption() {
-        return addLocationService.perform();
-    }
-
-    public boolean displayLocationsOption() {
-        return displayLocationsService.perform();
-    }
-
-    public boolean downloadForecastsOption() {
-        return downloadForecastsService.perform();
-    }
-
-    public boolean endProgramOption() {
-        return endProgramService.perform();
     }
 
     public boolean invalidCommand() {
         ui.invalidCommand();
         return true;
+    }
+
+    public <T extends AbstractCommandHandler<?>> boolean performAction(Class<T> handlerClass) {
+        if (!initialized) {
+            throw new IllegalStateException("App nie jest prawidłowo zainicjalizowane.");
+        }
+
+        AbstractCommandHandler<?> handler = handlers.get(handlerClass);
+        if (handler == null) {
+            return false;
+        }
+        return handler.perform();
     }
 }

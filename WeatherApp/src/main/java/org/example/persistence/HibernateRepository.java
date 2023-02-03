@@ -11,6 +11,7 @@ import org.hibernate.type.StringType;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class HibernateRepository implements Dao {
@@ -67,10 +68,12 @@ public class HibernateRepository implements Dao {
 
     @Override
     public List<DbLocation> readAll() {
+        List<DbLocation> locations = null;
         Transaction transaction = null;
+
         try (Session session = sessionFactory.getCurrentSession()) { // try with resources
             transaction = session.beginTransaction();
-            List<DbLocation> locations = session.createQuery("FROM Location", DbLocation.class).getResultList();
+            locations = session.createQuery("FROM DbLocation", DbLocation.class).getResultList();
             transaction.commit();
 
             return locations;
@@ -79,8 +82,9 @@ public class HibernateRepository implements Dao {
             if (transaction != null) {
                 transaction.rollback();
             }
-            return new ArrayList<>();
         }
+
+        return Objects.requireNonNullElseGet(locations, ArrayList::new);
     }
 
     @Override

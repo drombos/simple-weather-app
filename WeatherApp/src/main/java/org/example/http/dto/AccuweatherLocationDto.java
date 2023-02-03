@@ -2,7 +2,7 @@ package org.example.http.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-public class AccuweatherLocationDto implements LocationDto {
+public final class AccuweatherLocationDto implements LocationDto {
     @SerializedName("Key")
     private String locationKey;
 

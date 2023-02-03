@@ -1,9 +1,7 @@
 package org.example.http.dto;
 
-public interface LocationDto extends Dto {
-    String accuweatherLocationKey();
+import org.example.http.query.ApiForecastQuery;
 
-    Double openweatherLatitude();
+public interface LocationDto extends Dto, ApiForecastQuery {
 
-    Double openweatherLongitude();
 }

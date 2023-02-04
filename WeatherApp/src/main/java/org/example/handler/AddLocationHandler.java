@@ -4,7 +4,7 @@ import org.example.http.ApiClientPool;
 import org.example.http.dto.LocationDto;
 import org.example.http.query.ApiLocationQuery;
 import org.example.persistence.Dao;
-import org.example.persistence.ObjectMapper;
+import org.example.util.FormatMapper;
 import org.example.persistence.model.DbLocation;
 import org.example.ui.ErrorUI;
 import org.example.ui.submenu.AddLocationUI;
@@ -30,7 +30,7 @@ public class AddLocationHandler extends AbstractCommandHandler<AddLocationUI> {
         DbLocation locationToAdd;
         try {
             locationToAdd = mapLocationToDbEntity(locationFromApi);
-        } catch (ObjectMapper.ParsingException e) {
+        } catch (FormatMapper.ParsingException e) {
             errorUI.printError("Błędnie sformatowana / wybrakowana lokalizacja zwrócona z API, może padło?");
             return false;
         }
@@ -56,8 +56,8 @@ public class AddLocationHandler extends AbstractCommandHandler<AddLocationUI> {
         return location;
     }
 
-    private DbLocation mapLocationToDbEntity(LocationDto locationFromApi) throws ObjectMapper.ParsingException {
-        ObjectMapper mapper = new ObjectMapper();
+    private DbLocation mapLocationToDbEntity(LocationDto locationFromApi) throws FormatMapper.ParsingException {
+        FormatMapper mapper = new FormatMapper();
         return mapper.apiToDb(locationFromApi);
     }
 

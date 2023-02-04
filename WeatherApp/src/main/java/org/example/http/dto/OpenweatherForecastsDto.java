@@ -21,9 +21,18 @@ public class OpenweatherForecastsDto implements ForecastsDto {
         return dailyForecasts != null;
     }
 
-    private static class DailyForecastDto {
+    @Override
+    public int maxDayOffset() {
+        return dailyForecasts.size();
+    }
+
+    public DailyForecastDto getDailyForecast(int dayOffset) {
+        return dailyForecasts.get(dayOffset);
+    }
+
+    public static class DailyForecastDto {
         @SerializedName("dt")
-        private String epochDate;
+        private Long epochDate;
 
         @SerializedName("temp")
         private TempDto temp;
@@ -51,6 +60,61 @@ public class OpenweatherForecastsDto implements ForecastsDto {
 
         @SerializedName("weather")
         private List<WeatherDescriptionDto> weatherDescription;
+
+        public Long getEpochDate() {
+            return epochDate;
+        }
+
+        public Double getDayTemp() {
+            return temp.dayAvg;
+        }
+
+        public Double getNightTemp() {
+            return temp.nightAvg;
+        }
+
+        public Double getDayFeltTemp() {
+            return feltTemp.dayAvg;
+        }
+
+        public Double getNightFeltTemp() {
+            return feltTemp.nightAvg;
+        }
+
+        public Double getWindSpeed() {
+            return windSpeed;
+        }
+
+        public Double getWindGust() {
+            if (windGust == null) {
+                return windSpeed;
+            }
+            return windGust;
+        }
+
+        public Double getWindDirectionDeg() {
+            return windDirectionDeg;
+        }
+
+        public Double getPrecipitationChance() {
+            return precipitationChance;
+        }
+
+        public Double getRainVolume() {
+            return rainVolume;
+        }
+
+        public Double getSnowVolume() {
+            return snowVolume;
+        }
+
+        public String getWeatherDescription() {
+            if (weatherDescription.isEmpty()) {
+                return "";
+            } else {
+                return weatherDescription.get(0).msg;
+            }
+        }
 
         @Override
         public String toString() {

@@ -2,8 +2,9 @@ package org.example.http;
 
 import org.example.http.client.Api;
 import org.example.http.client.ApiClient;
-import org.example.http.dtos.ForecastsDto;
-import org.example.http.dtos.LocationDto;
+import org.example.http.dto.ForecastsDto;
+import org.example.http.dto.LocationDto;
+import org.example.http.query.ApiForecastQuery;
 import org.example.http.query.ApiLocationQuery;
 
 import java.util.*;
@@ -36,17 +37,19 @@ public class ApiClientPool {
                 .collect(Collectors.toSet());
     }
 
-    public static Set<? extends ForecastsDto> queryForecasts(LocationDto location) {
+    public static Set<? extends ForecastsDto> queryForecasts(ApiForecastQuery location) {
         return getInstance().forecastsSources.stream()
                 .flatMap(client -> client.queryForecasts(location).stream())
                 .collect(Collectors.toSet());
     }
 
-    public static Map<LocationDto, Set<? extends ForecastsDto>> queryForecasts(Collection<LocationDto> locations) {
-        Map<LocationDto, Set<? extends ForecastsDto>> locationToForecasts = new HashMap<>();
-        for (LocationDto location : locations) {
+    public static Map<ApiForecastQuery, Set<? extends ForecastsDto>> queryForecasts(Collection<ApiForecastQuery> locations) {
+        Map<ApiForecastQuery, Set<? extends ForecastsDto>> locationToForecasts = new HashMap<>();
+        for (ApiForecastQuery location : locations) {
             Set<? extends ForecastsDto> forecasts = queryForecasts(location);
-            locationToForecasts.put(location, forecasts);
+            if (!forecasts.isEmpty()) {
+                locationToForecasts.put(location, forecasts);
+            }
         }
         return locationToForecasts;
     }

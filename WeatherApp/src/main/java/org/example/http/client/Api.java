@@ -1,9 +1,9 @@
 package org.example.http.client;
 
-import org.example.http.services.AccuweatherRetrofitService;
-import org.example.http.services.OpenweatherRetrofitService;
-import org.example.http.services.RetrofitServiceFactory;
-import org.example.http.services.Service;
+import org.example.http.api_service.AccuweatherRetrofitService;
+import org.example.http.api_service.OpenweatherRetrofitService;
+import org.example.http.api_service.RetrofitServiceFactory;
+import org.example.http.api_service.Service;
 
 public enum Api {
     ACCUWEATHER("AccuWeather.com", "accuweather_key", "http://dataservice.accuweather.com/"),

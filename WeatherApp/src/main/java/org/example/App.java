@@ -1,47 +1,76 @@
 package org.example;
 
-import org.example.http.ApiClientPool;
-import org.example.http.dtos.LocationDto;
-import org.example.http.query.ApiLocationQuery;
-import org.example.service.AddLocationService;
-import org.example.ui.UIManager;
+import org.example.handler.*;
+import org.example.ui.UI;
 
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class App {
-    private App() {}
-    private static class Holder {
-        private static final App INSTANCE = new App();
-    }
+    private static final App INSTANCE = new App();
+    private static boolean initialized = false;
+    private UI ui;
+    private Map<Class<? extends AbstractCommandHandler<?>>, AbstractCommandHandler<?>> handlers;
+
+    private App() { }
+
     public static App getInstance() {
-        return Holder.INSTANCE;
+        return INSTANCE;
     }
 
-    public static void init(AddLocationService addLocationService) {
-        getInstance().addLocationService = addLocationService;
-    }
-    private AddLocationService addLocationService;
 
-    void run() {
-        UIManager.getInstance().startMainMenu();
+    static void runWith(
+            UI uiSolution,
+            AddLocationHandler addLocationService,
+            DisplayLocationsHandler displayLocationsService,
+            DownloadForecastsHandler downloadForecastsService,
+            EndProgramHandler endProgramService
+    ) {
+        App app = getInstance();
+        app.init(
+                uiSolution,
+                addLocationService,
+                displayLocationsService,
+                downloadForecastsService,
+                endProgramService
+        );
+
+        app.ui.startMainMenu();
     }
 
-    public boolean addLocationOption() {
-        return addLocationService.addLocationOption();
-    }
+    private void init(
+            UI uiSolution,
+            AddLocationHandler addLocationHandler,
+            DisplayLocationsHandler displayLocationsHandler,
+            DownloadForecastsHandler downloadForecastsHandler,
+            EndProgramHandler endProgramHandler
+    ) {
+        App app = getInstance();
+        app.ui = uiSolution;
 
-    public boolean displayLocationsOption() {
-        System.out.println("Wybrano opcję 2.");
-        return false;
-    }
+        handlers = new HashMap<>();
+        handlers.put(AddLocationHandler.class, addLocationHandler);
+        handlers.put(DisplayLocationsHandler.class, displayLocationsHandler);
+        handlers.put(DownloadForecastsHandler.class, downloadForecastsHandler);
+        handlers.put(EndProgramHandler.class, endProgramHandler);
 
-    public boolean getForecastsOption() {
-        System.out.println("Wybrano opcję 3.");
-        return false;
+        initialized = true;
     }
 
     public boolean invalidCommand() {
-        UIManager.getInstance().invalidCommand();
+        ui.invalidCommand();
         return true;
+    }
+
+    public <T extends AbstractCommandHandler<?>> boolean performAction(Class<T> handlerClass) {
+        if (!initialized) {
+            throw new IllegalStateException("App nie jest prawidłowo zainicjalizowane.");
+        }
+
+        AbstractCommandHandler<?> handler = handlers.get(handlerClass);
+        if (handler == null) {
+            return false;
+        }
+        return handler.perform();
     }
 }

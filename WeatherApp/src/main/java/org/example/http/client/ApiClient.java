@@ -1,15 +1,16 @@
 package org.example.http.client;
 
+import org.example.http.query.ApiForecastQuery;
 import org.example.http.query.ApiLocationQuery;
-import org.example.http.dtos.AccuweatherLocationDto;
-import org.example.http.dtos.Dto;
-import org.example.http.dtos.ForecastsDto;
-import org.example.http.dtos.LocationDto;
+import org.example.http.dto.AccuweatherLocationDto;
+import org.example.http.dto.Dto;
+import org.example.http.dto.ForecastsDto;
+import org.example.http.dto.LocationDto;
 import org.example.http.query.CityQuery;
 import org.example.http.query.GeoQuery;
-import org.example.http.services.AccuweatherRetrofitService;
-import org.example.http.services.OpenweatherRetrofitService;
-import org.example.http.services.Service;
+import org.example.http.api_service.AccuweatherRetrofitService;
+import org.example.http.api_service.OpenweatherRetrofitService;
+import org.example.http.api_service.Service;
 
 import java.io.IOException;
 import java.util.HashSet;
@@ -38,7 +39,7 @@ public class ApiClient implements ApiDataSource {
     }
 
     @Override
-    public Set<? extends ForecastsDto> queryForecasts(LocationDto location) {
+    public Set<? extends ForecastsDto> queryForecasts(ApiForecastQuery location) {
         Set<ForecastsDto> forecasts = new HashSet<>();
         ApiForecastFunction callMethod = switch (api) {
             case ACCUWEATHER -> this::getAccuweatherForecast;
@@ -84,7 +85,7 @@ public class ApiClient implements ApiDataSource {
     }
 
     private interface ApiForecastFunction {
-        Dto call(LocationDto location) throws IOException;
+        Dto call(ApiForecastQuery location) throws IOException;
     }
 
     private interface ApiLocationFunction {
@@ -125,7 +126,7 @@ public class ApiClient implements ApiDataSource {
         return null;
     }
 
-    private ForecastsDto getAccuweatherForecast(LocationDto location) throws IOException {
+    private ForecastsDto getAccuweatherForecast(ApiForecastQuery location) throws IOException {
         AccuweatherRetrofitService accuweather = (AccuweatherRetrofitService) service;
         return accuweather.getForecasts(
                 location.accuweatherLocationKey(),
@@ -136,7 +137,7 @@ public class ApiClient implements ApiDataSource {
         ).execute().body();
     }
 
-    private ForecastsDto getOpenweatherForecast(LocationDto location) throws IOException {
+    private ForecastsDto getOpenweatherForecast(ApiForecastQuery location) throws IOException {
         OpenweatherRetrofitService openweather = (OpenweatherRetrofitService) service;
         return openweather.getForecasts(
                 location.openweatherLatitude(),

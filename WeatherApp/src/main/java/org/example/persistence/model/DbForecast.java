@@ -161,7 +161,6 @@ public class DbForecast extends DbObject {
         this.location = location;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -169,24 +168,11 @@ public class DbForecast extends DbObject {
 
         DbForecast that = (DbForecast) o;
 
-        System.out.println(date);
-        System.out.println(that.date);
-        System.out.println(forecastSource);
-        System.out.println(that.forecastSource);
-        System.out.println(location);
-        System.out.println(that.location);
-
-        if (!Objects.equals(date, that.date)) return false;
-        if (!Objects.equals(forecastSource, that.forecastSource))
-            return false;
-        return Objects.equals(location, that.location);
+        return id != null && id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        int result = date != null ? date.hashCode() : 0;
-        result = 31 * result + (forecastSource != null ? forecastSource.hashCode() : 0);
-        result = 31 * result + (location != null ? location.hashCode() : 0);
-        return result;
+        return getClass().hashCode();
     }
 }

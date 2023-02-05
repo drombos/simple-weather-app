@@ -8,7 +8,7 @@ import org.example.http.api_service.Service;
 public enum Api {
     ACCUWEATHER("AccuWeather.com", "accuweather_key", "http://dataservice.accuweather.com/"),
     OPENWEATHER("OpenWeatherMap.org", "openweather_key", "https://api.openweathermap.org/");
-    final String name;
+    public final String name;
     final String credentialsKey;
     private final String baseUrl;
 

@@ -1,7 +1,7 @@
 package org.example.ui.console;
 
-import org.example.http.dto.ForecastsDto;
-import org.example.http.query.ApiForecastQuery;
+import org.example.persistence.model.DbForecast;
+import org.example.persistence.model.DbLocation;
 import org.example.ui.ForecastDisplayFormat;
 import org.example.ui.submenu.DownloadForecastsUI;
 import org.example.util.FormatMapper;
@@ -18,22 +18,22 @@ public class DownloadForecastsMenu implements DownloadForecastsUI {
     }
 
     @Override
-    public void displayForecasts(Map<ApiForecastQuery, Set<? extends ForecastsDto>> locationsWithForecasts) throws FormatMapper.ParsingException {
+    public void displayForecasts(Map<DbLocation, Set<DbForecast>> locationsWithForecasts) {
         FormatMapper mapper = new FormatMapper();
-        for (Map.Entry<ApiForecastQuery, Set<? extends ForecastsDto>> entry : locationsWithForecasts.entrySet()) {
-            ApiForecastQuery location = entry.getKey();
-            Set<? extends ForecastsDto> forecasts = entry.getValue();
+        for (Map.Entry<DbLocation, Set<DbForecast>> entry : locationsWithForecasts.entrySet()) {
+            DbLocation location = entry.getKey();
+            Set<DbForecast> forecasts = entry.getValue();
 
-            System.out.printf("####   %s   ####\n", location);
+            System.out.printf("\n\t\t\t####   %s   ####\n\n", location);
 
-            for (ForecastsDto forecast : forecasts) {
+            for (DbForecast forecast : forecasts) {
                 displayFormattedForecast(mapper, forecast);
             }
         }
     }
 
-    private void displayFormattedForecast(FormatMapper mapper, ForecastsDto forecast) throws FormatMapper.ParsingException {
-        ForecastDisplayFormat formattedForecast = mapper.apiToDisplay(forecast, 0);
+    private void displayFormattedForecast(FormatMapper mapper, DbForecast forecast) {
+        ForecastDisplayFormat formattedForecast = mapper.dbToDisplay(forecast);
         System.out.println(formattedForecast);
     }
 }

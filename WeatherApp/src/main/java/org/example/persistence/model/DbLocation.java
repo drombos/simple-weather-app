@@ -1,6 +1,7 @@
 package org.example.persistence.model;
 
 import javax.persistence.*;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -56,8 +57,20 @@ public class DbLocation extends DbObject {
     }
 
     public void addForecast(DbForecast forecast) {
-        this.forecasts.add(forecast);
-        forecast.setLocation(this);
+        if (isUniqueForecast(forecast)) {
+            this.forecasts.add(forecast);
+            forecast.setLocation(this);
+        }
+    }
+
+    private boolean isUniqueForecast(DbForecast newForecast) {
+        for (DbForecast f : forecasts) {
+            if (Objects.equals(f.getDate(), newForecast.getDate())
+                    && Objects.equals(f.getForecastSource(), newForecast.getForecastSource())) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public String getCountry() {
@@ -133,6 +146,6 @@ public class DbLocation extends DbObject {
 
     @Override
     public String toString() {
-        return city + " " + state + " " + country;
+        return city + ", " + state + ", " + country;
     }
 }

@@ -1,4 +1,11 @@
 package org.example.persistence.model;
 
-public interface DbObject {
+import javax.persistence.*;
+
+@MappedSuperclass
+public abstract class DbObject {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    protected Long id;
 }

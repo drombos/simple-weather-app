@@ -11,6 +11,7 @@ import org.example.http.query.GeoQuery;
 import org.example.http.api_service.AccuweatherRetrofitService;
 import org.example.http.api_service.OpenweatherRetrofitService;
 import org.example.http.api_service.Service;
+import retrofit2.Response;
 
 import java.io.IOException;
 import java.util.HashSet;

@@ -64,8 +64,8 @@ public class HibernateRepository implements Dao {
         Transaction transaction = null;
         try (Session session = sessionFactory.getCurrentSession()) {
             transaction = session.beginTransaction();
-            session.merge(location);
-            //session.saveOrUpdate(location);
+            DbLocation merged = (DbLocation) session.merge(location);
+            session.saveOrUpdate(merged); //Not sure about this, is just 'merge' enough???
             transaction.commit();
         } catch (HibernateException e) {
             e.printStackTrace();
@@ -75,7 +75,7 @@ public class HibernateRepository implements Dao {
             return false;
         }
 
-        return false;
+        return true;
     }
 
     @Override

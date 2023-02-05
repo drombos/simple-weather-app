@@ -45,7 +45,10 @@ public class DownloadForecastsHandler extends AbstractCommandHandler<DownloadFor
                 dbForecasts.forEach(dbLocation::addForecast);
                 forecastsToLocation.put(dbLocation, dbForecasts);
             }
-            dao.update(dbLocation);
+            boolean updateSuccessful = dao.update(dbLocation);
+            if (!updateSuccessful) {
+                throw new RuntimeException("Błąd aktualizacji prognoz w bazie danych.");
+            }
         });
 
         ui.displayForecasts(forecastsToLocation);

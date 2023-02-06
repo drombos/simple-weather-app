@@ -14,12 +14,20 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class DownloadForecastsHandler extends AbstractCommandHandler<DownloadForecastsUI> {
+    public static final String FORECAST_OFFSET_KEY = "offset";
+    private static final Integer DEFAULT_FORECAST_OFFSET = 0;
     public DownloadForecastsHandler(DownloadForecastsUI ui, ErrorUI errorUI, Dao dao) {
         super(ui, errorUI, dao);
     }
 
     @Override
     public boolean perform() {
+        Map<String, Object> defaultContext = Map.of(FORECAST_OFFSET_KEY, DEFAULT_FORECAST_OFFSET);
+        return perform(defaultContext);
+    }
+
+    @Override
+    public boolean perform(Map<String, Object> contextVariables) {
         Set<DbLocation> dbLocations = new HashSet<>(dao.readAll());
 
         if (dbLocations.isEmpty()) {
@@ -37,10 +45,20 @@ public class DownloadForecastsHandler extends AbstractCommandHandler<DownloadFor
             return false;
         }
 
+        int daysFromNow;
+        Object rawOffsetData = contextVariables.getOrDefault(FORECAST_OFFSET_KEY, 0);
+        if (rawOffsetData.getClass() == Integer.class) {
+            daysFromNow = (Integer) rawOffsetData;
+        } else {
+            errorUI.printError("Błędne zmienne kontekstowe, dla klucza %s oczekiwano Integer, otrzymano: %s"
+                    .formatted(FORECAST_OFFSET_KEY, rawOffsetData.getClass().getName()));
+            daysFromNow = 0;
+        }
+
         Map<DbLocation, Set<DbForecast>> forecastsToLocation = new HashMap<>();
         queriesToForecastsResults.forEach((location, forecasts) -> {
             DbLocation dbLocation = queriesToLocations.get(location);
-            Set<DbForecast> dbForecasts = convertApiResultsToDbEntities(forecasts);
+            Set<DbForecast> dbForecasts = convertApiResultsToDbEntities(forecasts, daysFromNow);
             if (dbLocation != null && !dbForecasts.isEmpty()) {
                 dbForecasts.forEach(dbLocation::addForecast);
                 forecastsToLocation.put(dbLocation, dbForecasts);
@@ -66,12 +84,13 @@ public class DownloadForecastsHandler extends AbstractCommandHandler<DownloadFor
 //        return allForecasts;
 //    }
 
-    private Set<DbForecast> convertApiResultsToDbEntities(Collection<? extends ForecastsDto> apiForecasts) {
+    private Set<DbForecast> convertApiResultsToDbEntities(Collection<? extends ForecastsDto> apiForecasts,
+                                                          Integer daysFromNow) {
         FormatMapper mapper = new FormatMapper();
         Set<DbForecast> dbForecasts = new HashSet<>();
         for (ForecastsDto f : apiForecasts) {
             try {
-                DbForecast dbForecast = mapper.apiToDb(f, 0);
+                DbForecast dbForecast = mapper.apiToDb(f, daysFromNow);
                 dbForecasts.add(dbForecast);
             } catch (FormatMapper.ParsingException e) {
                 errorUI.printError("Pominięto dodawanie prognozy do bazy danych.");

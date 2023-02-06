@@ -31,50 +31,50 @@ public class Main {
 
         HibernateRepository dao = new HibernateRepository();
 
-//        App.runWith(
-//                thymeleafUI,
-//                new AddLocationHandler(
-//                        thymeleafUI.getAddLocationMenu(),
-//                        thymeleafUI.getErrorUI(),
-//                        dao
-//                ),
-//                new DisplayLocationsHandler(
-//                        thymeleafUI.getDisplayLocationsMenu(),
-//                        thymeleafUI.getErrorUI(),
-//                        dao
-//                ),
-//                new DownloadForecastsHandler(
-//                        thymeleafUI.getDownloadForecastsMenu(),
-//                        thymeleafUI.getErrorUI(),
-//                        dao
-//                ),
-//                new EndProgramHandler(
-//                        thymeleafUI.getEndProgramMenu(),
-//                        thymeleafUI.getErrorUI(),
-//                        dao)
-//        );
-
         App.runWith(
-                consoleUI,
+                thymeleafUI,
                 new AddLocationHandler(
-                        consoleUI.getAddLocationMenu(),
-                        consoleUI.getErrorUI(),
+                        thymeleafUI.getAddLocationMenu(),
+                        thymeleafUI.getErrorUI(),
                         dao
                 ),
                 new DisplayLocationsHandler(
-                        consoleUI.getDisplayLocationsMenu(),
-                        consoleUI.getErrorUI(),
+                        thymeleafUI.getDisplayLocationsMenu(),
+                        thymeleafUI.getErrorUI(),
                         dao
                 ),
                 new DownloadForecastsHandler(
-                        consoleUI.getDownloadForecastsMenu(),
-                        consoleUI.getErrorUI(),
+                        thymeleafUI.getDownloadForecastsMenu(),
+                        thymeleafUI.getErrorUI(),
                         dao
                 ),
                 new EndProgramHandler(
-                        consoleUI.getEndProgramMenu(),
-                        consoleUI.getErrorUI(),
+                        thymeleafUI.getEndProgramMenu(),
+                        thymeleafUI.getErrorUI(),
                         dao)
         );
+
+//        App.runWith(
+//                consoleUI,
+//                new AddLocationHandler(
+//                        consoleUI.getAddLocationMenu(),
+//                        consoleUI.getErrorUI(),
+//                        dao
+//                ),
+//                new DisplayLocationsHandler(
+//                        consoleUI.getDisplayLocationsMenu(),
+//                        consoleUI.getErrorUI(),
+//                        dao
+//                ),
+//                new DownloadForecastsHandler(
+//                        consoleUI.getDownloadForecastsMenu(),
+//                        consoleUI.getErrorUI(),
+//                        dao
+//                ),
+//                new EndProgramHandler(
+//                        consoleUI.getEndProgramMenu(),
+//                        consoleUI.getErrorUI(),
+//                        dao)
+//        );
     }
 }

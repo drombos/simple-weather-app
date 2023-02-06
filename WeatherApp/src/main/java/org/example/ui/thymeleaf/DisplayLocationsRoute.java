@@ -3,6 +3,7 @@ package org.example.ui.thymeleaf;
 import org.example.persistence.model.DbLocation;
 import org.example.ui.submenu.DisplayLocationsUI;
 import org.thymeleaf.context.WebContext;
+import org.thymeleaf.web.IWebRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;

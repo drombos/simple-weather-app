@@ -12,12 +12,15 @@ import org.example.Main;
 import org.example.handler.AddLocationHandler;
 import org.example.handler.DisplayLocationsHandler;
 import org.example.handler.DownloadForecastsHandler;
+import org.example.ui.submenu.AddLocationUI;
 import org.thymeleaf.context.WebContext;
 import org.thymeleaf.web.IWebExchange;
 import org.thymeleaf.web.IWebRequest;
 import org.thymeleaf.web.servlet.JakartaServletWebApplication;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 @WebServlet(urlPatterns = {"", "/add", "/display", "/forecast"},
         loadOnStartup = 1)
@@ -63,15 +66,21 @@ public class WeatherServlet extends HttpServlet {
                 requestPath = requestPath.substring(0, fragmentIndex);
             }
 
-            Path route = Path.from(requestPath);
-            if (route == null) {
+            Path path = Path.from(requestPath);
+            if (path == null) {
                 app.invalidCommand();
                 return false;
             }
 
             ContextParametersSource contextSource = null;
-            switch (route) {
-                case ADD -> app.performAction(AddLocationHandler.class);
+            switch (path) {
+                case ADD -> {
+                    AddLocationUI ui = app.getUI().getAddLocationMenu();
+                    GETParametersProcessor GETProcessor = (GETParametersProcessor) ui;
+                    GETProcessor.takeGETParameters(webRequest);
+                    contextSource = (ContextParametersSource) ui;
+                    app.performAction(AddLocationHandler.class);
+                }
                 case DISPLAY -> {
                     contextSource = (ContextParametersSource) app.getUI().getDisplayLocationsMenu();
                     app.performAction(DisplayLocationsHandler.class);
@@ -80,6 +89,7 @@ public class WeatherServlet extends HttpServlet {
                     contextSource = (ContextParametersSource) app.getUI().getDownloadForecastsMenu();
                     app.performAction(DownloadForecastsHandler.class);
                 }
+                case INDEX -> contextSource = context -> new HashMap<>();
             }
 
             if (contextSource == null) {
@@ -90,7 +100,7 @@ public class WeatherServlet extends HttpServlet {
             WebContext context = new WebContext(webExchange, request.getLocale());
             context.setVariables(contextSource.getContextVariables(context));
 
-            ThymeleafEngine.getInstance().process(route.template, context, response.getWriter());
+            ThymeleafEngine.getInstance().process(path.template, context, response.getWriter());
 //            context.setVariable("name", "someName");
 //            context.setVariable("date", "someDate");
 

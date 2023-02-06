@@ -6,13 +6,13 @@ import org.example.ui.ForecastDisplayFormat;
 import org.example.ui.submenu.DownloadForecastsUI;
 import org.example.util.FormatMapper;
 import org.thymeleaf.context.WebContext;
+import org.thymeleaf.web.IWebRequest;
 
 import java.util.*;
 
 public class DownloadForecastsRoute implements DownloadForecastsUI, ContextParametersSource {
     private boolean noLocations;
     private Map<DbLocation, Set<ForecastDisplayFormat>> locationsWithDisplay = null;
-    private Map<String, Object> contextVariables;
 
     @Override
     public void noLocations() {
@@ -38,7 +38,7 @@ public class DownloadForecastsRoute implements DownloadForecastsUI, ContextParam
 
     @Override
     public Map<String, Object> getContextVariables(WebContext context) {
-        contextVariables = new HashMap<>();
+        Map<String, Object> contextVariables = new HashMap<>();
 
         if (noLocations) {
             contextVariables.put("noLocationsDisplay", "block");

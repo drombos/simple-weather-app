@@ -3,7 +3,10 @@ package org.example.ui.thymeleaf;
 public enum Path {
     ADD("/add", "add"),
     DISPLAY("/display", "display"),
-    FORECAST("/forecast", "forecast");
+    FORECAST("/forecast", "forecast"),
+    INDEX("", "index")
+
+    ;
 
     final String url;
     final String template;
@@ -24,6 +27,6 @@ public enum Path {
             return FORECAST;
         }
 
-        return null;
+        return INDEX;
     }
 }

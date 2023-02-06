@@ -26,12 +26,6 @@ public class ThymeleafUI implements UI {
 
     @Override
     public void startMainMenu() {
-//        Context context = new Context();
-//        context.setVariable("name", "TEST NAME");
-//        context.setVariable("date", "TEST DATE");
-//
-//        String index = ThymeleafEngine.getInstance().getContextVariables("index", context);
-//        System.out.println(index);
     }
 
     @Override

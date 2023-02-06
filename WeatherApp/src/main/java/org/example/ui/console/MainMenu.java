@@ -1,4 +1,4 @@
-package org.example.ui;
+package org.example.ui.console;
 
 import org.example.App;
 import org.example.handler.AddLocationHandler;

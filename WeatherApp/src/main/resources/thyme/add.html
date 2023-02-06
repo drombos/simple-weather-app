@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zapisywanie lokalizacji</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+</head>
+<body>
+
+<div th:style="|display: ${noLocationsDisplay};|">
+    <p>Nie znaleziono lokalizacji odpowiadających zapytaniu:</p>
+    <p th:text="${emptyResultQuery}"></p>
+</div>
+<div th:style="|display: ${alreadyAddedDisplay};|">
+    <p>Ta lokalizacja już jest w bazie danych.</p>
+    <p th:text="${alreadyAddedLocation}"></p>
+</div>
+<div th:style="|display: ${multipleResultsDisplay};|">
+    <h1>Znaleziono wiele wyników</h1>
+    <form action="/w/add" method="get">
+        <fieldset>
+            <legend>Wskaż konkretną lokalizację:</legend>
+            <ul>
+                <li th:each="match : ${matchDisplayList}">
+                    <input type="radio"
+                           th:id="|location_${matchStat.index}|"
+                           name="specific"
+                           th:value="${matchStat.index}"
+                    />
+                    <label th:for="|location_${matchStat.index}|"
+                           th:text="${match}">
+                    </label>
+                </li>
+            </ul>
+            <div>
+                <button type="submit">Zatwierdź</button>
+            </div>
+        </fieldset>
+    </form>
+</div>
+<div th:style="|display: ${doneDisplay};|">
+    <p>Dodano.</p>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js" integrity="sha384-mQ93GR66B00ZXjt0YO5KlohRA5SY2XofN4zfuZxLkoj1gXtW8ANNCe9d5Y3eG5eD" crossorigin="anonymous"></script>
+</body>
+</html>

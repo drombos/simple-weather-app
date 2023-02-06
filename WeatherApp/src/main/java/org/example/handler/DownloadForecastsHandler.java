@@ -56,6 +56,16 @@ public class DownloadForecastsHandler extends AbstractCommandHandler<DownloadFor
         return true;
     }
 
+//    private Map<DbLocation, Set<DbForecast>> getAllForecastsMapped() {
+//        List<DbLocation> allLocations = dao.readAll();
+//        Map<DbLocation, Set<DbForecast>> allForecasts = new HashMap<>();
+//        for (DbLocation dbLocation : allLocations) {
+//            allForecasts.put(dbLocation, dbLocation.getForecasts());
+//        }
+//
+//        return allForecasts;
+//    }
+
     private Set<DbForecast> convertApiResultsToDbEntities(Collection<? extends ForecastsDto> apiForecasts) {
         FormatMapper mapper = new FormatMapper();
         Set<DbForecast> dbForecasts = new HashSet<>();

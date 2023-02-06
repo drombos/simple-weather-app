@@ -4,15 +4,13 @@ import org.example.http.ApiClientPool;
 import org.example.http.dto.ForecastsDto;
 import org.example.http.query.ApiForecastQuery;
 import org.example.persistence.Dao;
+import org.example.persistence.model.DbForecast;
 import org.example.util.FormatMapper;
 import org.example.persistence.model.DbLocation;
 import org.example.ui.ErrorUI;
 import org.example.ui.submenu.DownloadForecastsUI;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class DownloadForecastsHandler extends AbstractCommandHandler<DownloadForecastsUI> {
@@ -22,36 +20,62 @@ public class DownloadForecastsHandler extends AbstractCommandHandler<DownloadFor
 
     @Override
     public boolean perform() {
-        List<DbLocation> locationsFromDb = dao.readAll();
+        Set<DbLocation> dbLocations = new HashSet<>(dao.readAll());
 
-        if (locationsFromDb.isEmpty()) {
+        if (dbLocations.isEmpty()) {
             ui.noLocations();
             return false;
         }
 
-        Set<ApiForecastQuery> locationQueries = convertDbEntitiesToApiQueries(locationsFromDb);
+        Map<ApiForecastQuery, DbLocation> queriesToLocations = assignDbEntitiesToApiQueries(dbLocations);
 
-        Map<ApiForecastQuery, Set<? extends ForecastsDto>> locationsWithForecasts =
-                ApiClientPool.queryForecasts(locationQueries);
+        Map<ApiForecastQuery, Set<? extends ForecastsDto>> queriesToForecastsResults =
+                ApiClientPool.queryForecasts(queriesToLocations.keySet());
 
-        if (locationsWithForecasts.isEmpty()) {
+        if (queriesToForecastsResults.isEmpty()) {
             errorUI.printError("Nie udało się pobrać prognoz. Prawdopodobnie problem z API.");
             return false;
         }
 
-        try {
-            ui.displayForecasts(locationsWithForecasts);
-        } catch (FormatMapper.ParsingException e) {
-            errorUI.printError("Błąd przetwarzania prognozy pogody z API: " + e.getMessage());
-        }
+        Map<DbLocation, Set<DbForecast>> forecastsToLocation = new HashMap<>();
+        queriesToForecastsResults.forEach((location, forecasts) -> {
+            DbLocation dbLocation = queriesToLocations.get(location);
+            Set<DbForecast> dbForecasts = convertApiResultsToDbEntities(forecasts);
+            if (dbLocation != null && !dbForecasts.isEmpty()) {
+                dbForecasts.forEach(dbLocation::addForecast);
+                forecastsToLocation.put(dbLocation, dbForecasts);
+            }
+            boolean updateSuccessful = dao.update(dbLocation);
+            if (!updateSuccessful) {
+                throw new RuntimeException("Błąd aktualizacji prognoz w bazie danych.");
+            }
+        });
+
+        ui.displayForecasts(forecastsToLocation);
 
         return true;
     }
 
-    private Set<ApiForecastQuery> convertDbEntitiesToApiQueries(Collection<DbLocation> locations) {
+    private Set<DbForecast> convertApiResultsToDbEntities(Collection<? extends ForecastsDto> apiForecasts) {
         FormatMapper mapper = new FormatMapper();
-        return locations.stream()
-                .map(mapper::dbToApi)
-                .collect(Collectors.toSet());
+        Set<DbForecast> dbForecasts = new HashSet<>();
+        for (ForecastsDto f : apiForecasts) {
+            try {
+                DbForecast dbForecast = mapper.apiToDb(f, 0);
+                dbForecasts.add(dbForecast);
+            } catch (FormatMapper.ParsingException e) {
+                errorUI.printError("Pominięto dodawanie prognozy do bazy danych.");
+            }
+        }
+        return dbForecasts;
+    }
+
+    private Map<ApiForecastQuery, DbLocation> assignDbEntitiesToApiQueries(Collection<DbLocation> dbLocations) {
+        FormatMapper mapper = new FormatMapper();
+        return dbLocations.stream()
+                .collect(Collectors.toMap(
+                        mapper::dbToApi,
+                        location -> location
+                ));
     }
 }

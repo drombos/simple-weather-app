@@ -1,11 +1,15 @@
 package org.example.util;
 
+import org.example.http.client.Api;
 import org.example.http.dto.*;
 import org.example.http.query.ApiForecastQuery;
+import org.example.persistence.model.DbForecast;
 import org.example.persistence.model.DbLocation;
+import org.example.persistence.model.Precipitation;
 import org.example.ui.ForecastDisplayFormat;
 
 import java.time.*;
+import java.util.Objects;
 
 
 public class FormatMapper {
@@ -49,163 +53,184 @@ public class FormatMapper {
         };
     }
 
-    public ForecastDisplayFormat apiToDisplay(ForecastsDto apiObj, int dayOffset) throws ParsingException {
+//    public ForecastDisplayFormat apiToDisplay(ForecastsDto apiObj, int dayOffset) throws ParsingException {
+//        if (dayOffset > apiObj.maxDayOffset()) {
+//            throw new ParsingException("Zażądano daty wybiegającej zbyt daleko do przodu");
+//        }
+//
+//        if (apiObj.getClass() == AccuweatherForecastsDto.class) {
+//            AccuweatherForecastsDto.DailyForecastDto dailyForecast =
+//                    ((AccuweatherForecastsDto) apiObj).getDailyForecast(dayOffset);
+//            return accuweatherToDisplay(dailyForecast);
+//        }
+//        if (apiObj.getClass() == OpenweatherForecastsDto.class) {
+//            OpenweatherForecastsDto.DailyForecastDto dailyForecast =
+//                    ((OpenweatherForecastsDto) apiObj).getDailyForecast(dayOffset);
+//            return openweatherToDisplay(dailyForecast);
+//        }
+//
+//        throw new IllegalArgumentException("Podany format Dto nie jest obsługiwany.");
+//    }
+
+    public DbForecast apiToDb(ForecastsDto apiObj, int dayOffset) throws ParsingException {
         if (dayOffset > apiObj.maxDayOffset()) {
-            throw new ParsingException("Zażądano daty wybiegającej zbyt daleko do przodu");
+            throw new ParsingException("Zażądano daty wybiegającej zbyt daleko do przodu.");
+        }
+        if (dayOffset < 0) {
+            throw new ParsingException("Przeszłe daty nie są obsługiwane przez darmową wersję API.");
         }
 
-        if (apiObj.getClass() == AccuweatherForecastsDto.class) {
+        if (AccuweatherForecastsDto.class == apiObj.getClass()) {
             AccuweatherForecastsDto.DailyForecastDto dailyForecast =
                     ((AccuweatherForecastsDto) apiObj).getDailyForecast(dayOffset);
-            return accuweatherToDisplay(dailyForecast);
+            return accuweatherForecastToDb(dailyForecast);
         }
+
         if (apiObj.getClass() == OpenweatherForecastsDto.class) {
             OpenweatherForecastsDto.DailyForecastDto dailyForecast =
                     ((OpenweatherForecastsDto) apiObj).getDailyForecast(dayOffset);
-            return openweatherToDisplay(dailyForecast);
+            return openweatherForecastToDb(dailyForecast);
         }
 
         throw new IllegalArgumentException("Podany format Dto nie jest obsługiwany.");
     }
 
-    private ForecastDisplayFormat accuweatherToDisplay(AccuweatherForecastsDto.DailyForecastDto forecast) {
+    private DbForecast accuweatherForecastToDb(AccuweatherForecastsDto.DailyForecastDto forecast) {
         AccuweatherForecastsDto.DailyForecastDto.DayNightDto day = forecast.getDay();
         AccuweatherForecastsDto.DailyForecastDto.DayNightDto night = forecast.getNight();
 
         ZonedDateTime forecastDate = ZonedDateTime.parse(forecast.getDate());
-        String date = forecastDate.toLocalDate().toString();
+        LocalDate date = forecastDate.toLocalDate();
 
         String description = "Dzień: " + day.getDescription() + " / Noc: " + night.getDescription();
 
-        Double avgFeltTemp = 0.5 * (forecast.getFeltTemp().getMin() + forecast.getFeltTemp().getMax());
-        String temp = "%.1f ÷ %.1f °C; odczuwalna %.1f °C"
-                .formatted(
-                        forecast.getTemp().getMin(),
-                        forecast.getTemp().getMax(),
-                        avgFeltTemp
-                );
+        Double avgTemp = avg(forecast.getTemp().getMin(), forecast.getTemp().getMax());
+        Double avgFeltTemp = avg(forecast.getFeltTemp().getMin(), forecast.getFeltTemp().getMax());
 
-        String precipitation = "za dnia %.0f%% szansy na %s (%.1f mm), w nocy %.0f%% szansy na %s (%.1f mm)"
-                .formatted(
-                        day.getPrecipitationChance(),
-                        day.getPrecipitationType(),
-                        day.getLiquidVolume(),
-                        night.getPrecipitationChance(),
-                        night.getPrecipitationType(),
-                        night.getLiquidVolume()
-                );
+        Double precipitationChance = avg(day.getPrecipitationChance(), night.getPrecipitationChance());
+        Precipitation precipitationType = Precipitation.fromAccuweather(
+                day.getPrecipitationType(),
+                night.getPrecipitationType()
+        );
+        Double precipitationVolume = avg(day.getLiquidVolume(), night.getLiquidVolume());
 
-        String parsedWindDirection = parseWindDirectionSymbol(day.getWindDir(), night.getWindDir());
-        Double avgWindSpeed = 0.5 * (day.getWindSpeed() + night.getWindSpeed());
-        Double avgGustSpeed = 0.5 * (day.getGustSpeed() + night.getGustSpeed());
-        String wind = "%s, prędkość %.0f km/h, w porywach %.0f km/h"
-                .formatted(
-                        parsedWindDirection,
-                        avgWindSpeed,
-                        avgGustSpeed
-                );
-        String source = "accuweather.com";
+        String windDirection = avgWindDirectionSymbol(day.getWindDir(), night.getWindDir());
+        Double windSpeed = avg(day.getWindSpeed(), night.getWindSpeed());
+        Double windGustSpeed = avg(day.getGustSpeed(), night.getGustSpeed());
 
-        return new ForecastDisplayFormat(date, description, temp, precipitation, wind, source);
+        String forecastSource = Api.ACCUWEATHER.name;
+
+        return new DbForecast(
+                date,
+                description,
+                avgTemp,
+                avgFeltTemp,
+                precipitationChance,
+                precipitationType,
+                precipitationVolume,
+                windDirection,
+                windSpeed,
+                windGustSpeed,
+                forecastSource
+        );
     }
 
-    private ForecastDisplayFormat openweatherToDisplay(OpenweatherForecastsDto.DailyForecastDto forecast) {
-        LocalDate forecastDate = Instant.ofEpochMilli(forecast.getEpochDate() * 1000)
+    private DbForecast openweatherForecastToDb(OpenweatherForecastsDto.DailyForecastDto forecast) {
+        LocalDate date = Instant.ofEpochMilli(forecast.getEpochDate() * 1000)
                 .atZone(ZoneId.systemDefault())
                 .toLocalDate();
-        String date = forecastDate.toString();
 
         String description = forecast.getWeatherDescription();
 
-        String temp = "%.1f °C w dzień, %.1f °C w nocy; odczuwalna %.1f °C w dzień, %.1f °C w nocy"
-                .formatted(
-                        forecast.getDayTemp(),
-                        forecast.getNightTemp(),
-                        forecast.getDayFeltTemp(),
-                        forecast.getNightFeltTemp()
-                );
-        String precipitationType;
-        Double precipitationVolume;
+        Double avgTemp = avg(forecast.getDayTemp(), forecast.getNightTemp());
+        Double avgFeltTemp = avg(forecast.getDayFeltTemp(), forecast.getNightFeltTemp());
+
+        Double precipitationChance = forecast.getPrecipitationChance() * 100.0;
         Double rain = forecast.getRainVolume();
         Double snow = forecast.getSnowVolume();
-
-        String precipitation;
-
-        if (rain == null && snow == null) {
-            precipitation = "%.0f%% szansy na opady"
-                    .formatted(
-                            forecast.getPrecipitationChance()
-                    );
-        } else {
-            if (rain != null && snow == null) {
-                precipitationType = "deszcz";
-                precipitationVolume = rain;
-            } else if (rain == null) {
-                precipitationType = "śnieg";
-                precipitationVolume = snow;
-            } else {
-                if (rain >= snow) {
-                    precipitationType = "deszcz";
-                    precipitationVolume = rain;
-                } else {
-                    precipitationType = "śnieg";
-                    precipitationVolume = snow;
-                }
-            }
-            precipitation = "%.0f%% szansy na %s (%.1f mm)"
-                    .formatted(
-                            forecast.getPrecipitationChance(),
-                            precipitationType,
-                            precipitationVolume
-                    );
-        }
-
+        Precipitation precipitationType = Precipitation.fromOpenweather(rain, snow);
+        Double precipitationVolume =
+                Objects.requireNonNullElse(rain, 0.0)
+                        + Objects.requireNonNullElse(snow, 0.0);
 
         Double windAngle = forecast.getWindDirectionDeg();
-        String wind = "%s, prędkość %.0f km/h, w porywach %.0f km/h"
+        String windDirection = windAngleToSymbol(windAngle);
+        Double windSpeed = forecast.getWindSpeed();
+        Double windGustSpeed = forecast.getWindGust();
+
+        String forecastSource = Api.OPENWEATHER.name;
+
+        return new DbForecast(
+                date,
+                description,
+                avgTemp,
+                avgFeltTemp,
+                precipitationChance,
+                precipitationType,
+                precipitationVolume,
+                windDirection,
+                windSpeed,
+                windGustSpeed,
+                forecastSource
+        );
+    }
+
+    public ForecastDisplayFormat dbToDisplay(DbForecast apiObj) {
+        String date = apiObj.getDate().toString();
+
+        String description = apiObj.getDescription();
+
+        String temp = "%.1f °C; odczuwalna %.1f °C"
                 .formatted(
-                        parseWindDirectionAngle(windAngle),
-                        forecast.getWindSpeed(),
-                        forecast.getWindGust()
+                        apiObj.getAvgTemp(),
+                        apiObj.getAvgFeltTemp()
                 );
 
-        String source = "openweather.com";
+        String precipitationMsg;
+        if (apiObj.getPrecipitationType() == Precipitation.UNKNOWN) {
+            precipitationMsg = "(brak danych)";
+        } else {
+            precipitationMsg = apiObj.getPrecipitationType().toDescription();
+        }
+        String precipitation = "%.0f%% szansy na %s (%.1f mm)"
+                .formatted(
+                        apiObj.getPrecipitationChance(),
+                        precipitationMsg,
+                        apiObj.getPrecipitationVolume()
+                );
+
+        String wind = "%s, prędkość %.0f km/h, w porywach %.0f km/h"
+                .formatted(
+                        parseWindDirectionSymbol(apiObj.getWindDirection()),
+                        apiObj.getWindSpeed(),
+                        apiObj.getWindGustSpeed()
+                );
+
+        String source = apiObj.getForecastSource();
 
         return new ForecastDisplayFormat(date, description, temp, precipitation, wind, source);
     }
 
-    private String parseWindDirectionAngle(Double windAngle) {
+    private String windAngleToSymbol(Double windAngle) {
         if (windAngle < 45 || windAngle >= 315) {
-            return "północny";
+            return "N";
         }
         if (windAngle >= 45 && windAngle < 135) {
-            return "wschodni";
+            return "E";
         }
         if (windAngle >= 135 && windAngle < 225) {
-            return "południowy";
+            return "S";
         }
-        if (windAngle >= 225) {
-            return "zachodni";
-        }
-        return "nieokreślony kierunek";
+        return "W";
+
     }
 
-    private String parseWindDirectionSymbol(String dayWind, String nightWind) {
-        String engWind;
-        if (!dayWind.equalsIgnoreCase(nightWind) && nightWind.length() + dayWind.length() <= 3) {
-            engWind = dayWind + nightWind;
-        } else {
-            engWind = dayWind;
-        }
+    private String parseWindDirectionSymbol(String windSymbol) {
+        String[] parsedWind = new String[windSymbol.length()];
 
-        engWind = engWind.toUpperCase();
-        engWind = pruneDuplicateDirections(engWind);
-
-        String[] plWind = new String[engWind.length()];
-
-        for (int i = 0; i < engWind.length(); i++) {
-            if (i < engWind.length() - 1) {
-                plWind[i] = switch (engWind.charAt(i)) {
+        for (int i = 0; i < windSymbol.length(); i++) {
+            if (i < windSymbol.length() - 1) {
+                parsedWind[i] = switch (windSymbol.charAt(i)) {
                     case 'W' -> "zachodnio";
                     case 'N' -> "północno";
                     case 'E' -> "wschodnio";
@@ -213,7 +238,7 @@ public class FormatMapper {
                     default -> "";
                 };
             } else {
-                plWind[i] = switch (engWind.charAt(i)) {
+                parsedWind[i] = switch (windSymbol.charAt(i)) {
                     case 'W' -> "zachodni";
                     case 'N' -> "północny";
                     case 'E' -> "wschodni";
@@ -223,7 +248,19 @@ public class FormatMapper {
             }
         }
 
-        return String.join("-", plWind);
+        return String.join("-", parsedWind);
+    }
+
+    private String avgWindDirectionSymbol(String dayWind, String nightWind) {
+        String windSymbol;
+        if (!dayWind.equalsIgnoreCase(nightWind) && nightWind.length() + dayWind.length() <= 3) {
+            windSymbol = dayWind + nightWind;
+        } else {
+            windSymbol = dayWind;
+        }
+
+        windSymbol = windSymbol.toUpperCase();
+        return pruneDuplicateDirections(windSymbol);
     }
 
     private String pruneDuplicateDirections(String raw) {
@@ -237,9 +274,15 @@ public class FormatMapper {
         return pruned.toString();
     }
 
+    private Double avg(Double v1, Double v2) {
+        return 0.5 * (v1 + v2);
+    }
+
     public static class ParsingException extends Exception {
         public ParsingException(String message) {
             super(message);
         }
     }
+
+
 }

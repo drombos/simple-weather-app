@@ -1,5 +1,6 @@
 package org.example.persistence;
 
+import org.example.persistence.model.DbForecast;
 import org.example.persistence.model.DbLocation;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -36,14 +37,15 @@ public class HibernateRepository implements Dao {
                 .setProperty("hibernate.connection.username", username)
                 .setProperty("hibernate.connection.password", password)
                 .addAnnotatedClass(DbLocation.class)
+                .addAnnotatedClass(DbForecast.class)
                 .buildSessionFactory();
-        System.out.println("init connection");
+        System.out.println("Hibernate initialized.");
     }
 
     @Override
     public boolean create(DbLocation dbLocation) {
         Transaction transaction = null;
-        try (Session session = sessionFactory.getCurrentSession()) { // try with resources
+        try (Session session = sessionFactory.getCurrentSession()) {
             transaction = session.beginTransaction();
             session.save(dbLocation);
             transaction.commit();
@@ -57,21 +59,31 @@ public class HibernateRepository implements Dao {
         return true;
     }
 
-//    public void update (int id, int location){
-//        Session currentSession = sessionFactory.getCurrentSession();
-//        Transaction transaction = currentSession.beginTransaction();
-//        DbLocation dbLocation = currentSession.get(DbLocation.class,id);
-//        dbLocation.setLocation(location);
-//        transaction.commit();
-//        currentSession.close();
-//    }
+    @Override
+    public boolean update(DbLocation location) {
+        Transaction transaction = null;
+        try (Session session = sessionFactory.getCurrentSession()) {
+            transaction = session.beginTransaction();
+            DbLocation merged = (DbLocation) session.merge(location);
+            session.saveOrUpdate(merged); //Not sure about this, is just 'merge' enough???
+            transaction.commit();
+        } catch (HibernateException e) {
+            e.printStackTrace();
+            if (transaction != null) {
+                transaction.rollback();
+            }
+            return false;
+        }
+
+        return true;
+    }
 
     @Override
     public List<DbLocation> readAll() {
         List<DbLocation> locations = null;
         Transaction transaction = null;
 
-        try (Session session = sessionFactory.getCurrentSession()) { // try with resources
+        try (Session session = sessionFactory.getCurrentSession()) {
             transaction = session.beginTransaction();
             locations = session.createQuery("FROM DbLocation", DbLocation.class).getResultList();
             transaction.commit();

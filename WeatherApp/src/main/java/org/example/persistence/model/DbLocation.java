@@ -1,14 +1,12 @@
 package org.example.persistence.model;
 
 import javax.persistence.*;
+import java.util.Objects;
+import java.util.Set;
 
 @Entity
 @Table(name = "location")
-public class DbLocation implements DbObject {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Long id;
+public class DbLocation extends DbObject {
     @Column(name = "city")
     private String city;
     @Column(name = "state")
@@ -22,6 +20,15 @@ public class DbLocation implements DbObject {
     @Column(name = "accuweather_key",
             unique = true)
     private String accuweatherKey;
+
+    @OneToMany(
+            mappedBy = "location",
+            cascade = CascadeType.ALL,
+            orphanRemoval = true,
+            //fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
+    )
+    private Set<DbForecast> forecasts;
 
     public DbLocation(String city, String state, String country, Double longitude, Double latitude,
                       String accuweatherKey) {
@@ -38,7 +45,33 @@ public class DbLocation implements DbObject {
         this.accuweatherKey = accuweatherKey;
     }
 
-    private DbLocation() { }
+    private DbLocation() {
+    }
+
+    public Set<DbForecast> getForecasts() {
+        return forecasts;
+    }
+
+    public void setForecasts(Set<DbForecast> forecasts) {
+        this.forecasts = forecasts;
+    }
+
+    public void addForecast(DbForecast forecast) {
+        if (isUniqueForecast(forecast)) {
+            this.forecasts.add(forecast);
+            forecast.setLocation(this);
+        }
+    }
+
+    private boolean isUniqueForecast(DbForecast newForecast) {
+        for (DbForecast f : forecasts) {
+            if (Objects.equals(f.getDate(), newForecast.getDate())
+                    && Objects.equals(f.getForecastSource(), newForecast.getForecastSource())) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public String getCountry() {
         return country;
@@ -113,6 +146,6 @@ public class DbLocation implements DbObject {
 
     @Override
     public String toString() {
-        return city + " " + state + " " + country;
+        return city + ", " + state + ", " + country;
     }
 }

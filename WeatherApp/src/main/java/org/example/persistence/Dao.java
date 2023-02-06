@@ -9,5 +9,7 @@ public interface Dao {
 
     List<DbLocation> readAll();
 
+    boolean update(DbLocation location);
+
     boolean doesAlreadyContain(DbLocation location);
 }

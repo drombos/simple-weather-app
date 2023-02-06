@@ -2,7 +2,6 @@ package org.example.ui.console;
 
 import org.example.ui.ErrorUI;
 import org.example.ui.submenu.AddLocationUI;
-import org.example.ui.MainMenu;
 import org.example.ui.UI;
 import org.example.ui.submenu.DisplayLocationsUI;
 import org.example.ui.submenu.DownloadForecastsUI;

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Pogodynka z kursu SDA, gr. 4</title>
+</head>
+<body>
+
+<!--<p th:text="|Hello, ${name}!|">Hello, user!</p>-->
+<!--<p th:text="|Today is ${date}.|">Today is ...</p>-->
+<div id="buttonsArea">
+    <form action="/add" method="get">
+        <label for="city">Miasto:</label>
+        <input type="text" id="city" name="city"/><br><br>
+        <label for="area">Region:</label>
+        <input type="text" id="area" name="area"/><br><br>
+        <label for="country">Kraj:</label>
+        <input type="text" id="country" name="country"/><br><br>
+
+        <input type="submit" value="Dodaj lokalizację">
+    </form>
+
+    <br><br>
+    <form action="/display" method="get">
+        <input type="submit" value="Wyświetl lokalizacje">
+    </form>
+
+    <br><br>
+    <form action="/forecast" method="get">
+        <input type="submit" value="Sprawdź prognozy">
+    </form>
+
+</div>
+
+</body>
+</html>

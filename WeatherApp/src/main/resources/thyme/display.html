@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Zapisane lokalizacje</title>
+</head>
+<body>
+
+<!--<p th:text="|Hello, ${name}!|">Hello, user!</p>-->
+<!--<p th:text="|Today is ${date}.|">Today is ...</p>-->
+<div>
+    <h1>Zapisane lokalizacje:</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>*</th>
+            <th>Miasto</th>
+            <th>Rejon</th>
+            <th>Kraj</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="location : ${locations}">
+            <td th:text="${locationStat.count}"></td>
+            <td th:text="${location.city}"></td>
+            <td th:text="${location.state}"></td>
+            <td th:text="${location.country}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+</body>
+</html>

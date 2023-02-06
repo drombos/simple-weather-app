@@ -6,7 +6,8 @@ import org.example.handler.DisplayLocationsHandler;
 import org.example.handler.DownloadForecastsHandler;
 import org.example.handler.EndProgramHandler;
 import org.example.ui.console.*;
-import org.example.ui.MainMenu;
+import org.example.ui.console.MainMenu;
+import org.example.ui.thymeleaf.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -20,29 +21,60 @@ public class Main {
                 new EndProgramMenu()
         );
 
+        ThymeleafUI thymeleafUI = new ThymeleafUI(
+                new ErrorRoute(),
+                new AddLocationRoute(),
+                new DisplayLocationsRoute(),
+                new DownloadForecastsRoute(),
+                new EndProgramRoute()
+        );
+
         HibernateRepository dao = new HibernateRepository();
 
         App.runWith(
-                consoleUI,
+                thymeleafUI,
                 new AddLocationHandler(
-                        consoleUI.getAddLocationMenu(),
-                        consoleUI.getErrorUI(),
+                        thymeleafUI.getAddLocationMenu(),
+                        thymeleafUI.getErrorUI(),
                         dao
                 ),
                 new DisplayLocationsHandler(
-                        consoleUI.getDisplayLocationsMenu(),
-                        consoleUI.getErrorUI(),
+                        thymeleafUI.getDisplayLocationsMenu(),
+                        thymeleafUI.getErrorUI(),
                         dao
                 ),
                 new DownloadForecastsHandler(
-                        consoleUI.getDownloadForecastsMenu(),
-                        consoleUI.getErrorUI(),
+                        thymeleafUI.getDownloadForecastsMenu(),
+                        thymeleafUI.getErrorUI(),
                         dao
                 ),
                 new EndProgramHandler(
-                        consoleUI.getEndProgramMenu(),
-                        consoleUI.getErrorUI(),
+                        thymeleafUI.getEndProgramMenu(),
+                        thymeleafUI.getErrorUI(),
                         dao)
         );
+
+//        App.runWith(
+//                consoleUI,
+//                new AddLocationHandler(
+//                        consoleUI.getAddLocationMenu(),
+//                        consoleUI.getErrorUI(),
+//                        dao
+//                ),
+//                new DisplayLocationsHandler(
+//                        consoleUI.getDisplayLocationsMenu(),
+//                        consoleUI.getErrorUI(),
+//                        dao
+//                ),
+//                new DownloadForecastsHandler(
+//                        consoleUI.getDownloadForecastsMenu(),
+//                        consoleUI.getErrorUI(),
+//                        dao
+//                ),
+//                new EndProgramHandler(
+//                        consoleUI.getEndProgramMenu(),
+//                        consoleUI.getErrorUI(),
+//                        dao)
+//        );
     }
 }

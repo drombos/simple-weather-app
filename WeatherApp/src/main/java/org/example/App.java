@@ -64,7 +64,7 @@ public class App {
 
     public <T extends AbstractCommandHandler<?>> boolean performAction(Class<T> handlerClass) {
         if (!initialized) {
-            throw new IllegalStateException("App nie jest prawidłowo zainicjalizowane.");
+            throw new IllegalStateException("Appka nie jest prawidłowo zainicjalizowana.");
         }
 
         AbstractCommandHandler<?> handler = handlers.get(handlerClass);
@@ -72,5 +72,9 @@ public class App {
             return false;
         }
         return handler.perform();
+    }
+
+    public UI getUI() {
+        return ui;
     }
 }

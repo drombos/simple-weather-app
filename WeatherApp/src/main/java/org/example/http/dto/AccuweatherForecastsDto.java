@@ -2,8 +2,6 @@ package org.example.http.dto;
 
 import com.google.gson.annotations.SerializedName;
 
-import java.util.Arrays;
-import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -35,7 +33,7 @@ public class AccuweatherForecastsDto implements ForecastsDto {
 
     @Override
     public int maxDayOffset() {
-        return dailyForecasts.size();
+        return dailyForecasts.size() - 1;
     }
 
     public DailyForecastDto getDailyForecast(int dayOffset) {

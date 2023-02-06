@@ -158,20 +158,6 @@ class ApiClientTest {
         assertEquals(4, response.stream().map(Object::toString).filter(str -> str.contains("Jarocin")).count());
     }
 
-    private HttpUrl locationUrlFromApi(Api api) {
-        return switch (api) {
-            case ACCUWEATHER -> server.url("/locations/v1/cities/search/");
-            case OPENWEATHER -> server.url("/geo/1.0/direct/");
-        };
-    }
-
-    private HttpUrl forecastUrlFromApi(Api api) {
-        return switch (api) {
-            case ACCUWEATHER -> server.url("/forecasts/v1/daily/5day/TEST/");
-            case OPENWEATHER -> server.url("/data/3.0/onecall/");
-        };
-    }
-
     private MockResponse getResponseFromFile(File file) throws Exception {
         BufferedReader reader = new BufferedReader(new FileReader(file));
         String json = reader.lines().collect(Collectors.joining());
@@ -205,4 +191,20 @@ class ApiClientTest {
     private CityQuery fakeCityQuery() {
         return new CityQuery("asdasd", null, null);
     }
+
+    private HttpUrl locationUrlFromApi(Api api) {
+        return switch (api) {
+            case ACCUWEATHER -> server.url("/locations/v1/cities/search/");
+            case OPENWEATHER -> server.url("/geo/1.0/direct/");
+        };
+    }
+
+    private HttpUrl forecastUrlFromApi(Api api) {
+        return switch (api) {
+            case ACCUWEATHER -> server.url("/forecasts/v1/daily/5day/TEST/");
+            case OPENWEATHER -> server.url("/data/3.0/onecall/");
+        };
+    }
+
+
 }

@@ -74,6 +74,23 @@ public class App {
         return handler.perform();
     }
 
+    public <T extends AbstractCommandHandler<?>> boolean performAction(Class<T> handlerClass,
+                                                                       Map<String, Object> contextVariables) {
+        if (!initialized) {
+            throw new IllegalStateException("Appka nie jest prawidłowo zainicjalizowana.");
+        }
+
+        AbstractCommandHandler<?> handler = handlers.get(handlerClass);
+        if (handler == null) {
+            return false;
+        }
+
+        if (contextVariables == null) {
+            return handler.perform();
+        }
+        return handler.perform(contextVariables);
+    }
+
     public UI getUI() {
         return ui;
     }

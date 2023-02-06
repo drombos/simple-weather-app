@@ -3,6 +3,8 @@ package org.example.handler;
 import org.example.persistence.Dao;
 import org.example.ui.ErrorUI;
 
+import java.util.Map;
+
 public abstract class AbstractCommandHandler<T> {
     protected final T ui;
     protected final ErrorUI errorUI;
@@ -19,4 +21,8 @@ public abstract class AbstractCommandHandler<T> {
     }
 
     public abstract boolean perform();
+
+    public boolean perform(Map<String, Object> contextVariables) {
+        return perform();
+    }
 }

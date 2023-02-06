@@ -23,7 +23,7 @@ public class OpenweatherForecastsDto implements ForecastsDto {
 
     @Override
     public int maxDayOffset() {
-        return dailyForecasts.size();
+        return dailyForecasts.size() - 1;
     }
 
     public DailyForecastDto getDailyForecast(int dayOffset) {

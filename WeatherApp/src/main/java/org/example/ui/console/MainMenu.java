@@ -6,6 +6,8 @@ import org.example.handler.DisplayLocationsHandler;
 import org.example.handler.DownloadForecastsHandler;
 import org.example.handler.EndProgramHandler;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class MainMenu {
@@ -20,7 +22,7 @@ public class MainMenu {
                     Wybierz opcję:
                     a. Dodaj lokalizację.
                     b. Wyświetl wszystkie lokalizacje.
-                    c. Pobierz prognozę pogody.
+                    c. Pobierz prognozę pogody (wpisz 'c X' aby pobrać prognozę X dni późniejszą).
                     d. Zakończ program.
                     """);
             usersChoice = scanner.nextLine();
@@ -30,9 +32,33 @@ public class MainMenu {
                 case "b" -> app.performAction(DisplayLocationsHandler.class);
                 case "c" -> app.performAction(DownloadForecastsHandler.class);
                 case "d" -> app.performAction(EndProgramHandler.class);
-                default -> app.invalidCommand();
+                default -> {
+                    boolean validCommand = handleParameterizedCommand(usersChoice);
+                    if (!validCommand) {
+                        app.invalidCommand();
+                    }
+                }
             }
             System.out.println();
         }
+    }
+
+    private boolean handleParameterizedCommand(String input) {
+        if (input.matches("c \\d")) {
+            String[] splitInput = input.split(" ");
+            try {
+                int forecastOffset = Integer.parseInt(splitInput[1]);
+
+                Map<String, Object> contextVariables = new HashMap<>();
+                contextVariables.put(DownloadForecastsHandler.FORECAST_OFFSET_KEY, forecastOffset);
+
+                app.performAction(DownloadForecastsHandler.class, contextVariables);
+
+                return true;
+            } catch (NumberFormatException ignore) {
+                //ignore
+            }
+        }
+        return false;
     }
 }

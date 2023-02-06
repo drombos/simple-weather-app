@@ -53,25 +53,6 @@ public class FormatMapper {
         };
     }
 
-//    public ForecastDisplayFormat apiToDisplay(ForecastsDto apiObj, int dayOffset) throws ParsingException {
-//        if (dayOffset > apiObj.maxDayOffset()) {
-//            throw new ParsingException("Zażądano daty wybiegającej zbyt daleko do przodu");
-//        }
-//
-//        if (apiObj.getClass() == AccuweatherForecastsDto.class) {
-//            AccuweatherForecastsDto.DailyForecastDto dailyForecast =
-//                    ((AccuweatherForecastsDto) apiObj).getDailyForecast(dayOffset);
-//            return accuweatherToDisplay(dailyForecast);
-//        }
-//        if (apiObj.getClass() == OpenweatherForecastsDto.class) {
-//            OpenweatherForecastsDto.DailyForecastDto dailyForecast =
-//                    ((OpenweatherForecastsDto) apiObj).getDailyForecast(dayOffset);
-//            return openweatherToDisplay(dailyForecast);
-//        }
-//
-//        throw new IllegalArgumentException("Podany format Dto nie jest obsługiwany.");
-//    }
-
     public DbForecast apiToDb(ForecastsDto apiObj, int dayOffset) throws ParsingException {
         if (dayOffset > apiObj.maxDayOffset()) {
             throw new ParsingException("Zażądano daty wybiegającej zbyt daleko do przodu.");

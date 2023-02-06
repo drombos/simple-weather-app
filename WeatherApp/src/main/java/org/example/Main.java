@@ -21,13 +21,13 @@ public class Main {
                 new EndProgramMenu()
         );
 
-        ThymeleafUI thymeleafUI = new ThymeleafUI(
-                new ErrorRoute(),
-                new AddLocationRoute(),
-                new DisplayLocationsRoute(),
-                new DownloadForecastsRoute(),
-                new EndProgramRoute()
-        );
+//        ThymeleafUI thymeleafUI = new ThymeleafUI(
+//                new ErrorRoute(),
+//                new AddLocationRoute(),
+//                new DisplayLocationsRoute(),
+//                new DownloadForecastsRoute(),
+//                new EndProgramRoute()
+//        );
 
         HibernateRepository dao = new HibernateRepository();
 

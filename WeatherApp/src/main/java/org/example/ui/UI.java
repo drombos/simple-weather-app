@@ -7,7 +7,6 @@ import org.example.ui.submenu.EndProgramUI;
 
 public interface UI {
     void startMainMenu();
-
     void invalidCommand();
 
     AddLocationUI getAddLocationMenu();

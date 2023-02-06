@@ -19,4 +19,34 @@ public record ForecastDisplayFormat(
                 """.stripIndent()
                 .formatted(date, description, temp, precipitation, wind, source);
     }
+
+    @Override
+    public String date() {
+        return date;
+    }
+
+    @Override
+    public String description() {
+        return description;
+    }
+
+    @Override
+    public String temp() {
+        return temp;
+    }
+
+    @Override
+    public String precipitation() {
+        return precipitation;
+    }
+
+    @Override
+    public String wind() {
+        return wind;
+    }
+
+    @Override
+    public String source() {
+        return source;
+    }
 }

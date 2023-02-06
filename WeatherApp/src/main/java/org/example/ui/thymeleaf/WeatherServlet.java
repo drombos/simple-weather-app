@@ -76,7 +76,10 @@ public class WeatherServlet extends HttpServlet {
                     contextSource = (ContextParametersSource) app.getUI().getDisplayLocationsMenu();
                     app.performAction(DisplayLocationsHandler.class);
                 }
-                case FORECAST -> app.performAction(DownloadForecastsHandler.class);
+                case FORECAST -> {
+                    contextSource = (ContextParametersSource) app.getUI().getDownloadForecastsMenu();
+                    app.performAction(DownloadForecastsHandler.class);
+                }
             }
 
             if (contextSource == null) {

@@ -1,5 +1,6 @@
 package org.example.persistence;
 
+import org.example.persistence.model.DbForecast;
 import org.example.persistence.model.DbLocation;
 
 import java.util.List;

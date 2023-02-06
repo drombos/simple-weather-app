@@ -22,7 +22,7 @@ public class MainMenu {
                     Wybierz opcję:
                     a. Dodaj lokalizację.
                     b. Wyświetl wszystkie lokalizacje.
-                    c. Pobierz prognozę pogody.
+                    c. Pobierz prognozę pogody (wpisz 'c X' aby pobrać prognozę X dni późniejszą).
                     d. Zakończ program.
                     """);
             usersChoice = scanner.nextLine();
